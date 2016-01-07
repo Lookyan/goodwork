@@ -20,5 +20,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'work.views.home', name='home'),
     url(r'^job/$', 'work.views.jobs', name='jobs'),
-    url(r'^job/(\d*)', 'work.views.job', name='job')
+    url(r'^job/(\d*)', 'work.views.job', name='job'),
+    url(r'^signin/', 'work.views.signin', name='signin'),
+    url(r'^signup/', 'work.views.signup', name='signup')
 ]
