@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <nav class="light-green darken-1">
+                <div class="nav-wrapper">
+                    <form>
+                        <div class="input-field">
+                            <input id="search" type="search" value="Cisco" required>
+                            <label for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <ul class="collapsible" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header">
+                        <div class="row">
+                            <div class="col s2">
+                                <img src="/uploads/cisco-systems.png" class="circle responsive-img vacancy-image"/>
+                            </div>
+                            <div class="col s6">
+                                <a href="{% url 'job' 123 %}" class="vacancy-link" target="_blank">Associate Sales
+                                    Representative (Full Time) Russia</a>
+                            </div>
+                            <div class="col s4">
+                                <i class="material-icons md-48 light-green-text text-darken-2 right expand-icon">expand_more</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="col s12 null-padd">
+                                <ul class="tabs over-hidden">
+                                    <li class="tab col s3"><a href="#test1"
+                                                              class="active light-green-text text-darken-2">Описание
+                                        вакансии</a></li>
+                                    <li class="tab col s3"><a href="#test2" class="light-green-text text-darken-2">О
+                                        работодателе</a></li>
+                                    <li class="tab col s3"><a href="#test3" class="light-green-text text-darken-2">Дополнительная
+                                        информация</a></li>
+                                </ul>
+                            </div>
+                            <div id="test1" class="col s12">
+                                <p>
+                                    New opportunities with our Cisco partners and collaborate with Cisco engineers to
+                                    provide technical solutions. Learn from Cisco experts in a unique setting…
+                                    organization, where you’ll be mentored directly by Cisco sales professionals. Upon
+                                    graduation from the Cisco Sales Associates Program, you’ll be promoted into…
+                                </p>
+                            </div>
+                            <div id="test2" class="col s12">Test 2</div>
+                            <div id="test3" class="col s12">Test 3</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="col s12 null-padd">
+                                <ul class="tabs over-hidden">
+                                    <li class="tab col s3"><a href="#test1"
+                                                              class="active light-green-text text-darken-2">Описание
+                                        вакансии</a></li>
+                                    <li class="tab col s3"><a href="#test2" class="light-green-text text-darken-2">О
+                                        работодателе</a></li>
+                                    <li class="tab col s3"><a href="#test3" class="light-green-text text-darken-2">Дополнительная
+                                        информация</a></li>
+                                </ul>
+                            </div>
+                            <div id="test1" class="col s12">Test 1</div>
+                            <div id="test2" class="col s12">Test 2</div>
+                            <div id="test3" class="col s12">Test 3</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+                    <div class="collapsible-body">
+                        <div class="row">
+                            <div class="col s12 null-padd">
+                                <ul class="tabs over-hidden">
+                                    <li class="tab col s3"><a href="#test1"
+                                                              class="active light-green-text text-darken-2">Описание
+                                        вакансии</a></li>
+                                    <li class="tab col s3"><a href="#test2" class="light-green-text text-darken-2">О
+                                        работодателе</a></li>
+                                    <li class="tab col s3"><a href="#test3" class="light-green-text text-darken-2">Дополнительная
+                                        информация</a></li>
+                                </ul>
+                            </div>
+                            <div id="test1" class="col s12">Test 1</div>
+                            <div id="test2" class="col s12">Test 2</div>
+                            <div id="test3" class="col s12">Test 3</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

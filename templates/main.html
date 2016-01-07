@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="bgrnd valign-wrapper">
+    <div class="row valign center-align opacity">
+        <div class="col s12">
+            <div class="card light-green hoverable width-corr">
+                <div class="card-content white-text">
+                    <span class="card-title"><h4>Люби свою работу!</h4></span>
+                    <div class="input-field">
+                        <select>
+                            <option value="" disabled selected>Что ищем?</option>
+                            <option value="1">Вакансии</option>
+                            <option value="2">Компании</option>
+                            <option value="3">Собеседования</option>
+                            <option value="4">Зарплаты</option>
+                        </select>
+                    </div>
+                    <input type="text" class="custom-input" placeholder="Название"/>
+                </div>
+                <div class="card-action">
+                    <button class="btn waves-effect waves-light green darken-4 wh-fixer" type="submit" name="action">Найти
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="shift"></div>
+<div class="row">
+    <div class="col s12 m5">
+        <div class="card-panel teal">
+      <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+      I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+      </span>
+        </div>
+    </div>
+</div>
+
+<div class="section light-green darken-1">
+    <div class="container">
+        <h5 class="white-text">Компании</h5>
+
+        <div class="row">
+            Google
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s9">
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel light-green darken-3">
+                    <div class="row">
+                        <div class="col s2">avatar jbdc gferf wyegdef ygfergf ygfefg wguwehf gyfger fgugfyg eygfregfygc
+                            yfgerfgugf
+                        </div>
+                        <div class="col s10">info</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s3">test1</div>
+</div>
+
+{% endblock %}

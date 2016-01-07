@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav class="light-green nav-fix">
+    <ul id="slide-out" class="side-nav">
+        <li><a href="sass.html">Вакансии</a></li>
+        <li><a href="badges.html">Компании</a></li>
+        <li><a href="collapsible.html">Зарплаты</a></li>
+        <li><a href="collapsible.html">Собеседования</a></li>
+    </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+
+    <div class="nav-wrapper container">
+        <a href="#" class="brand-logo logo"><i class="large material-icons left">view_carousel</i>Моя Работа</a>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+            <div class="nav-search right">
+                <a href="#" onclick="return false;"><i class="mdi-action-search"></i></a>
+
+                <div class="material-search-overlay circle material-search-overlay-color-bg material-search-overlay-hidden"></div>
+                <form class="material-search-form material-search-form-hidden" action="//emerald.sekizgen.net"
+                      autocomplete="off">
+                    <div class="material-search-form-container">
+                        <a href="#" onclick="return false;" class="material-search-close"><i
+                                class="mdi-navigation-close"></i></a>
+
+                        <div class="material-search-form-container-row">
+                            <div class="material-search-label center-align">
+                                <label for="s">Введите позицию или компанию</label>
+                            </div>
+                            <div class="material-search-input">
+                                <input type="text" id="s" name="s" class="validate" autofocus="">
+                                <span class="input-bottom-bar"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <li><a href="sass.html">Вакансии</a></li>
+            <li><a href="badges.html">Компании</a></li>
+            <li><a href="collapsible.html">Зарплаты</a></li>
+            <li><a href="collapsible.html">Собеседования</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="rect"></div>
+
+{% block main %}{% endblock %}
+
+<footer class="page-footer light-green darken-2">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
+                    content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright light-green darken-3">
+        <div class="container">
+            © 2016 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+    </div>
+</footer>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+<!--<script src="emerald.js"></script>-->
+<!--<script type='text/javascript' src='http://emerald.sekizgen.net/wp-content/plugins/bwp-minify/min/?f=wp-content/themes/material-emerald/js/materialize.min.js,wp-content/themes/material-emerald/js/jquery.flexslider-min.js,wp-content/themes/material-emerald/js/imagesloaded.pkgd.min.js,wp-includes/js/hoverIntent.min.js,wp-content/themes/material-emerald/js/superfish.js,wp-content/themes/material-emerald/js/masonry.pkgd.min.js,wp-content/themes/material-emerald/js/equalize.min.js,wp-content/themes/material-emerald/js/jquery.magnific-popup.min.js,wp-content/themes/material-emerald/js/mobile-detect.min.js,wp-content/themes/material-emerald/js/jquery.sticky.js,wp-content/themes/material-emerald/js/scripts.js,wp-includes/js/comment-reply.min.js,wp-content/plugins/js_composer/assets/js/js_composer_front.js'></script>-->
+<script>
+    $(".button-collapse").sideNav();
+    $('.nav-search > a').click(function () {
+        $('.material-search-overlay').toggleClass('material-search-overlay-hidden').toggleClass('material-search-overlay-visible');
+        $('.material-search-form').toggleClass('material-search-form-hidden').toggleClass('material-search-form-visible');
+//            if (!(mobile_detect.is('iOS') && mobile_detect.is('Safari'))) {
+//                setTimeout(function() {
+//                    $('.material-search-form .material-search-input input[name=s]').focus();
+//                }, 600);
+//            }
+    });
+    $('.nav-search a.material-search-close').click(function () {
+        $('.material-search-form .material-search-input input[name=s]').blur();
+        $('.material-search-overlay').toggleClass('material-search-overlay-hidden').toggleClass('material-search-overlay-visible');
+        $('.material-search-form').toggleClass('material-search-form-hidden').toggleClass('material-search-form-visible');
+    });
+
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.collapsible-body').css('display', 'block');
+        $('ul.tabs').tabs('select_tab', 'test1');
+        $('.collapsible-body').css('display', 'none');
+        $('.collapsible-header').click(function() {
+            var $expandIcon = $(this).find('.expand-icon');
+            if($expandIcon.text() == 'expand_more') {
+                $expandIcon.text('expand_less');
+            } else {
+                $expandIcon.text('expand_more');
+            }
+        });
+        $('.vacancy-link').click(function(e) {
+            e.stopPropagation();
+        });
+    });
+</script>
+</body>
+</html>
