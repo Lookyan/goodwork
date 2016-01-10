@@ -38,7 +38,7 @@ def signin(request):
 def signup(request):
     if request.method == 'POST':
         data = request.POST.copy()
-        data['username'] = str(int(User.objects.latest('id').id) + 1)
+        data['username'] = str(int(User.objects.latest('id').id) + 1)  # race condition!
         form = SignUpForm(data)
         if form.is_valid():
             user = form.save()

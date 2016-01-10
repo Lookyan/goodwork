@@ -300,3 +300,7 @@ ul.over-hidden {
 .login-form a {
     color: #8bc34a;
 }
+
+.errorlist li {
+    color: red;
+}
