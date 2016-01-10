@@ -3,6 +3,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from work.models import Profile
 
 
 class SignUpForm(UserCreationForm):
@@ -25,8 +26,12 @@ class SignUpForm(UserCreationForm):
         user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         user.email = self.cleaned_data["email"]
-        user.is_active = True # change to false if using email activation
+        user.is_active = True    # change to false if using email activation
         if commit:
             user.save()
+        profile = Profile()
+        profile.group = Profile.REGULAR_USER
+        profile.user = user
+        profile.save()
 
         return user
