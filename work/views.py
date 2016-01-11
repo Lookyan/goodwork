@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from goodwork.forms import SignUpForm
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -46,3 +47,13 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+
+@login_required
+def settings(request):
+    return render(request, 'settings.html', {})
+
+
+@login_required
+def add(request):
+    return render(request, 'add.html', {})

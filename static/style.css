@@ -234,6 +234,10 @@ input[type=text]:focus:not([readonly]) {
     color: white;
 }
 
+.add-form span.caret {
+    color: #33691e;
+}
+
 .select-wrapper input.select-dropdown {
     border-bottom: 1px solid #c5e1a5;
 }

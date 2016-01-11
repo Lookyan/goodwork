@@ -45,13 +45,26 @@
                 </form>
             </div>
             <div class="right">
-                <a href="{% url 'signin' %}"><i class="material-icons tooltipped" data-position="bottom" data-delay="5" data-tooltip="
+                <a class="tooltipped" href="{% url 'add' %}" data-position="bottom" data-delay="5" data-tooltip="Добавить информацию">
+                    <i class="material-icons">add_circle</i>
+                </a>
+            </div>
+            <div class="right">
+                <a class="tooltipped" href="
+                {% if user.is_authenticated %}
+                {% url 'settings' %}
+                {% else %}
+                {% url 'signin' %}
+                {% endif %}
+                " data-position="bottom" data-delay="5" data-tooltip="
                 {% if user.is_authenticated %}
                     Перейти в аккаунт
                 {% else %}
                     Войти или зарегистрироваться
                 {% endif %}
-                ">account_circle</i></a>
+                ">
+                    <i class="material-icons">account_circle</i>
+                </a>
             </div>
 
             <li><a href="{% url 'jobs' %}">Вакансии</a></li>

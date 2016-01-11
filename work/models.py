@@ -68,6 +68,7 @@ class City(models.Model):
 
 
 class Review(models.Model):
+    user = models.ForeignKey(User, default=None)
     company = models.ForeignKey(Company)
     rating = models.PositiveSmallIntegerField(default=0)
     is_current_employee = models.BooleanField(default=False)
@@ -95,6 +96,7 @@ class Review(models.Model):
 
 
 class Salary(models.Model):
+    user = models.ForeignKey(User, default=None)
     job = models.ForeignKey('Job')
     company = models.ForeignKey('Company')
     value = models.IntegerField(default=0)
@@ -121,6 +123,7 @@ class Salary(models.Model):
 
 
 class Interview(models.Model):
+    user = models.ForeignKey(User, default=None)
     POSITIVE = '+'
     NEGATIVE = '-'
     NEUTRAL = '?'
