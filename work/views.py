@@ -56,4 +56,9 @@ def settings(request):
 
 @login_required
 def add(request):
-    return render(request, 'add.html', {})
+    if request.method == 'GET':
+        return render(request, 'add.html', {})
+    elif request.method == 'POST':
+        type = request.POST['type']
+        if type == 'review':
+            return render(request, 'add-review.html', {})

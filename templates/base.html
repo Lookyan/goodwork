@@ -44,6 +44,13 @@
                     </div>
                 </form>
             </div>
+            {% if user.is_authenticated %}
+            <div class="right">
+                <a class="tooltipped" href="{% url 'logout' %}" data-position="bottom" data-delay="5" data-tooltip="Выйти">
+                    <i class="material-icons">arrow_forward</i>
+                </a>
+            </div>
+            {% endif %}
             <div class="right">
                 <a class="tooltipped" href="{% url 'add' %}" data-position="bottom" data-delay="5" data-tooltip="Добавить информацию">
                     <i class="material-icons">add_circle</i>
@@ -66,11 +73,14 @@
                     <i class="material-icons">account_circle</i>
                 </a>
             </div>
+            <div class="right blank-place">
 
-            <li><a href="{% url 'jobs' %}">Вакансии</a></li>
-            <li><a href="badges.html">Компании</a></li>
-            <li><a href="collapsible.html">Зарплаты</a></li>
-            <li><a href="collapsible.html">Собеседования</a></li>
+            </div>
+
+            <li><a href="{% url 'jobs' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Вакансии"><i class="material-icons">work</i></a></li>
+            <li><a href="badges.html" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Компании"><i class="material-icons">business</i></a></li>
+            <li><a href="collapsible.html" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Зарплаты"><i class="material-icons">local_atm</i></a></li>
+            <li><a href="collapsible.html" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Собеседования"><i class="material-icons">contact_phone</i></a></li>
         </ul>
     </div>
 </nav>

@@ -21,8 +21,9 @@ urlpatterns = [
     url(r'^$', 'work.views.home', name='home'),
     url(r'^job/$', 'work.views.jobs', name='jobs'),
     url(r'^job/(\d*)', 'work.views.job', name='job'),
-    url(r'^signin/', 'work.views.signin', name='signin'),
-    url(r'^signup/', 'work.views.signup', name='signup'),
-    url(r'^settings/', 'work.views.settings', name='settings'),
-    url(r'^add/', 'work.views.add', name='add'),
+    url(r'^signin/$', 'work.views.signin', name='signin'),
+    url(r'^signup/$', 'work.views.signup', name='signup'),
+    url(r'^settings/$', 'work.views.settings', name='settings'),
+    url(r'^add/$', 'work.views.add', name='add'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
 ]

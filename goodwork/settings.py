@@ -106,4 +106,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = '/home/alex/goodwork/uploads/'
 
+
+LOGIN_URL = '/signin/'
+LOGIN_REDIRECT_URL = '/'
+
 AUTHENTICATION_BACKENDS = ('goodwork.backends.EmailAuthBackend',)

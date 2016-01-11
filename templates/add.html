@@ -1,32 +1,35 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <div class="row">
-        <div class="col s6 offset-s3">
-            <div class="section white z-depth-1">
-                <div class="row">
-                    <div class="col s12">
-                        <h4 class="center-align light-green-text">
-                            Добавление анонимной информации
-                        </h4>
+    <form action="" method="post">
+    {% csrf_token %}
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <div class="section white z-depth-1">
+                    <div class="row">
+                        <div class="col s12">
+                            <h4 class="center-align light-green-text">
+                                Добавление анонимной информации
+                            </h4>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 add-form">
-                        <select>
-                            <option value="1" selected>Отзыв о компании</option>
-                            <option value="2">Уровень зарплаты</option>
-                            <option value="3">Отзыв о собеседовании</option>
-                        </select>
-                        <label>Выберите</label>
+                    <div class="row">
+                        <div class="input-field col s12 add-form">
+                            <select name="type">
+                                <option value="review" selected>Отзыв о компании</option>
+                                <option value="salary">Уровень зарплаты</option>
+                                <option value="interview">Отзыв о собеседовании</option>
+                            </select>
+                            <label>Выберите</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <button class="btn large light-green">Далее</button>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button type="submit" class="btn large light-green">Далее</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 {% endblock %}
