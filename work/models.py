@@ -167,6 +167,20 @@ class Interview(models.Model):
     offer = models.CharField(max_length=1,
                              choices=TYPE_OFFER,
                              default=NOT_CHECKED)
+    entire_process = models.PositiveSmallIntegerField(default=0)
+    DAYS = 'D'
+    WEEKS = 'W'
+    MONTHS = 'M'
+
+    DURATION_IN = (
+        (DAYS, 'Days'),
+        (WEEKS, 'Weeks'),
+        (MONTHS, 'Months'),
+    )
+    duration = models.CharField(max_length=1,
+                                choices=DURATION_IN,
+                                default=DAYS)
+    place = models.CharField(max_length=250)
 
 
 class InterviewQuestion(models.Model):
