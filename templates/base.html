@@ -45,7 +45,13 @@
                 </form>
             </div>
             <div class="right">
-                <a href="{% url 'signin' %}"><i class="material-icons">account_circle</i></a>
+                <a href="{% url 'signin' %}"><i class="material-icons tooltipped" data-position="bottom" data-delay="5" data-tooltip="
+                {% if user.is_authenticated %}
+                    Перейти в аккаунт
+                {% else %}
+                    Войти или зарегистрироваться
+                {% endif %}
+                ">account_circle</i></a>
             </div>
 
             <li><a href="{% url 'jobs' %}">Вакансии</a></li>

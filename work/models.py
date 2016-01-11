@@ -18,7 +18,7 @@ class Profile(models.Model):
 
 class Company(models.Model):
     name = models.CharField(max_length=200)
-    logo = models.ImageField(upload_to='companies')
+    logo = models.ImageField(upload_to='companies', default=None, null=True, blank=True)
     size = models.IntegerField(default=0)
     engaged = models.BooleanField(default=False)
     founded = models.PositiveSmallIntegerField(default=0)
@@ -32,7 +32,7 @@ class Job(models.Model):
     company = models.ForeignKey('Company')
     description = models.TextField()
     date_added = models.DateField(auto_now_add=True)
-    location = models.ForeignKey('City')
+    location = models.ForeignKey('City', default=None, null=True, blank=True)
     experience = models.PositiveSmallIntegerField(default=0)
     category = models.ForeignKey('Category')
     FULL_TIME = 'FT'
@@ -59,8 +59,8 @@ class Job(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
-    parent = models.ForeignKey('Category')
-    icon = models.ImageField(upload_to='categories')
+    parent = models.ForeignKey('Category', default=None, null=True, blank=True)
+    icon = models.ImageField(upload_to='categories', default=None, null=True, blank=True)
 
 
 class City(models.Model):
@@ -89,7 +89,7 @@ class Review(models.Model):
     status = models.CharField(max_length=2,
                               choices=EMPLOYMENT_STATUS,
                               default=NOT_CHECKED)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, default=None, null=True, blank=True)
     pros = models.TextField()
     cons = models.TextField()
 
@@ -99,7 +99,7 @@ class Salary(models.Model):
     company = models.ForeignKey('Company')
     value = models.IntegerField(default=0)
     experience = models.PositiveSmallIntegerField(default=0)
-    location = models.ForeignKey('City')
+    location = models.ForeignKey('City', default=None, null=True, blank=True)
     FULL_TIME = 'FT'
     PART_TIME = 'PT'
     CONTRACT = 'CT'
