@@ -183,20 +183,25 @@
     $(".ui-helper-hidden-accessible").css("display", "none");
   });
 
+  var clearToSend = false;
+
   $(function() {
     var $company = $('#company');
     $company.change(function() {
         $(this).removeClass('invalid');
     });
     $(".choose-company").submit(function (e) {
-        var res = false;
+        if(clearToSend) {
+            return true;
+        }
+
         if($.trim($company.val()) == '') {
             $company.addClass('invalid');
             return false;
         }
         //check company exists:
         $.ajax({
-            url: '/companycheck',
+            url: '/companycheck/',
             data: {'name': $('#company').val()}
         }).done(function(data) {
             if(data.result == false) {
@@ -204,10 +209,11 @@
                 $('.company-name').text($('#company').val());
                 $('#add-comp').openModal();
             } else {
-                res = true;
+                clearToSend = true;
+                $('.choose-company').submit();
             }
         });
-        return res;
+        return false;
     });
 
     var frm = $('#compcreate');
@@ -217,10 +223,12 @@
             url: frm.attr('action'),
             data: frm.serialize() + "&name=" + $company.val(),
             success: function (data) {
-                //$("#SOME-DIV").html(data);
+                $("#add-comp").closeModal();
+                clearToSend = true;
+                $(".choose-company").submit();
             },
             error: function(data) {
-                //$("#MESSAGE-DIV").html("Something went wrong!");
+                alert("К сожалению, компания не может быть создана");
             }
         });
         return false;

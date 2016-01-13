@@ -95,6 +95,6 @@ def company_create_js(request):
         company = form.save(commit=False)
         company.name = request.POST.get("name")
         company.save()
-        return JsonResponse({'result': 'ok', 'id': company.id})
+        return JsonResponse({'result': 'ok'})
     else:
         return JsonResponse({'result': 'error'})
