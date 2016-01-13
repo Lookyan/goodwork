@@ -39,7 +39,7 @@
     </form>
 
     <div id="add-comp" class="modal modal-fixed-footer">
-    <form action="/companycreate" method="post">
+    <form id="compcreate" action="/companycreate/" method="post">
         <div class="modal-content">
             <h5>К сожалению, у нас еще нет информации о <span class="company-name light-green-text"></span></h5>
             <h5>Расскажите немного об этой компании</h5>
@@ -61,8 +61,8 @@
             {% endfor %}
         </div>
         <div class="modal-footer">
-            <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Добавить</button>
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Отмена</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn-flat">Добавить</button>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Отмена</a>
         </div>
     </form>
     </div>

@@ -87,3 +87,14 @@ def company_check(request):
     except Company.DoesNotExist:
         return JsonResponse({'result': False})
     return JsonResponse({'result': True})
+
+
+def company_create_js(request):
+    form = CompanyAddForm(request.POST)
+    if form.is_valid():
+        company = form.save(commit=False)
+        company.name = request.POST.get("name")
+        company.save()
+        return JsonResponse({'result': 'ok', 'id': company.id})
+    else:
+        return JsonResponse({'result': 'error'})

@@ -207,11 +207,23 @@
                 res = true;
             }
         });
-        if(res) {
-            return true;
-        } else {
-            return false;
-        }
+        return res;
+    });
+
+    var frm = $('#compcreate');
+    frm.submit(function () {
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize() + "&name=" + $company.val(),
+            success: function (data) {
+                //$("#SOME-DIV").html(data);
+            },
+            error: function(data) {
+                //$("#MESSAGE-DIV").html("Something went wrong!");
+            }
+        });
+        return false;
     });
   });
 

@@ -49,3 +49,10 @@ class CompanyAddForm(ModelForm):
         widgets = {
             'website': forms.TextInput(attrs={'value': 'http://'})
         }
+
+    # def save(self, commit=True):
+    #     company = super(CompanyAddForm, self).save(commit=False)
+    #     company.name = self.cleaned_data["name"]
+    #     if commit:
+    #         company.save()
+    #     return company
