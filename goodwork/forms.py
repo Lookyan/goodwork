@@ -3,7 +3,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from work.models import Profile
+from work.models import Profile, Company
+from django.forms import ModelForm
 
 
 class SignUpForm(UserCreationForm):
@@ -35,3 +36,16 @@ class SignUpForm(UserCreationForm):
         profile.save()
 
         return user
+
+
+class CompanyAddForm(ModelForm):
+    class Meta:
+        model = Company
+        fields = ['website', 'size']
+        labels = {
+            'website': 'Веб-сайт',
+            'size': 'Общее количество сотрудников'
+        }
+        widgets = {
+            'website': forms.TextInput(attrs={'value': 'http://'})
+        }

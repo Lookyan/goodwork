@@ -1,11 +1,19 @@
 html {
     padding: 0px;
     margin: 0px;
+    min-height: 100vh;
 }
 
 body {
     background-color: #f0f0f0;
     font-family: "Helvetica Neue";
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 .logo {

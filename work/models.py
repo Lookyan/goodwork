@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
 from django.contrib.auth.models import User
 from managers import CompanyManager
@@ -19,13 +21,35 @@ class Profile(models.Model):
 
 class Company(models.Model):
     name = models.CharField(max_length=200)
+    user = models.ForeignKey(User, null=True, blank=True)
     website = models.CharField(max_length=100, null=True, blank=True)
     logo = models.ImageField(upload_to='companies', default=None, null=True, blank=True)
-    size = models.IntegerField(default=0)
+
+    EMP1_50 = '1'
+    EMP51_200 = '2'
+    EMP201_500 = '3'
+    EMP501_1000 = '4'
+    EMP1001_5000 = '5'
+    EMPGT5000 = '6'
+    UNKNOWN = '7'
+
+    SIZE_EMPS_CHOICES = (
+        (EMP1_50, '1-50'),
+        (EMP51_200, '51-200'),
+        (EMP201_500, '201-500'),
+        (EMP501_1000, '501-1000'),
+        (EMP1001_5000, '1001-5000'),
+        (EMPGT5000, '> 5000'),
+        (UNKNOWN, 'Неизвестно'),
+    )
+    size = models.CharField(max_length=1,
+                            choices=SIZE_EMPS_CHOICES,
+                            default=UNKNOWN)
     engaged = models.BooleanField(default=False)
     founded = models.PositiveSmallIntegerField(default=0)
     revenue = models.IntegerField(default=0)
     description = models.TextField()
+    is_publicated = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
     objects = CompanyManager()
 
@@ -73,6 +97,7 @@ class City(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User, default=None)
     company = models.ForeignKey(Company)
+    is_publicated = models.BooleanField(default=False)
     rating = models.PositiveSmallIntegerField(default=0)
     is_current_employee = models.BooleanField(default=False)
     FULL_TIME = 'FT'
@@ -142,6 +167,7 @@ class Interview(models.Model):
     job = models.ForeignKey('Job')
     description = models.TextField()
     question = models.ManyToManyField('InterviewQuestion')
+    is_publicated = models.BooleanField(default=False)
     VERY_EASY = 'VE'
     EASY = 'E'
     AVERAGE = 'A'

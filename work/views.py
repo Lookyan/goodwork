@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from goodwork.forms import SignUpForm
+from goodwork.forms import SignUpForm, CompanyAddForm
 from django.contrib.auth.decorators import login_required
 from work.models import Company
 
@@ -59,16 +59,31 @@ def settings(request):
 @login_required
 def add(request):
     if request.method == 'GET':
-        return render(request, 'add.html', {})
+        company_add_form = CompanyAddForm()
+        return render(request, 'add.html', {'form': company_add_form})
     elif request.method == 'POST':
-        type = request.POST['type']
-        if type == 'review':
-            return render(request, 'add-review.html', {})
+        type = request.POST.get('type')
+        if type is not None:
+            if type == 'review':
+                return render(request, 'add-review.html', {})
 
 
 def companyjs(request):
-    term = request.GET['term']
+    term = request.GET.get('term')
+    if term is None:
+        return HttpResponseBadRequest()
     if len(term) < 3:
         return HttpResponseBadRequest()
     data = Company.objects.get_by_name_part(term)
     return JsonResponse(data, safe=False)
+
+
+def company_check(request):
+    name = request.GET.get('name')
+    if name is None:
+        return HttpResponseBadRequest
+    try:
+        Company.objects.get(name__iexact=name.strip())
+    except Company.DoesNotExist:
+        return JsonResponse({'result': False})
+    return JsonResponse({'result': True})
