@@ -118,6 +118,7 @@
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script src="/jquery-ui.min.js"></script>
 
 <!--<script src="emerald.js"></script>-->
 <!--<script type='text/javascript' src='http://emerald.sekizgen.net/wp-content/plugins/bwp-minify/min/?f=wp-content/themes/material-emerald/js/materialize.min.js,wp-content/themes/material-emerald/js/jquery.flexslider-min.js,wp-content/themes/material-emerald/js/imagesloaded.pkgd.min.js,wp-includes/js/hoverIntent.min.js,wp-content/themes/material-emerald/js/superfish.js,wp-content/themes/material-emerald/js/masonry.pkgd.min.js,wp-content/themes/material-emerald/js/equalize.min.js,wp-content/themes/material-emerald/js/jquery.magnific-popup.min.js,wp-content/themes/material-emerald/js/mobile-detect.min.js,wp-content/themes/material-emerald/js/jquery.sticky.js,wp-content/themes/material-emerald/js/scripts.js,wp-includes/js/comment-reply.min.js,wp-content/plugins/js_composer/assets/js/js_composer_front.js'></script>-->
@@ -160,6 +161,50 @@
             e.stopPropagation();
         });
     });
+
+    $(function() {
+    $company = $("#company");
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $company.autocomplete({
+      source: "/companyjs/",
+      minLength: 3
+    });
+    $company.data("ui-autocomplete")
+            ._renderItem = function(ul, item) {
+        return $("<li></li>")
+                            .data("item.autocomplete", item)
+                            .append("<a>" + item.value + "</a>")
+                            .appendTo(ul);
+    };
+    $(".ui-autocomplete").addClass("dropdown-content active")
+            .css("opacity", 1)
+            .css("max-height", "200px");
+    $(".ui-helper-hidden-accessible").css("display", "none");
+  });
+
 </script>
 </body>
 </html>

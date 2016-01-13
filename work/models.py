@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from managers import CompanyManager
 
 
 class Profile(models.Model):
@@ -18,6 +19,7 @@ class Profile(models.Model):
 
 class Company(models.Model):
     name = models.CharField(max_length=200)
+    website = models.CharField(max_length=100, null=True, blank=True)
     logo = models.ImageField(upload_to='companies', default=None, null=True, blank=True)
     size = models.IntegerField(default=0)
     engaged = models.BooleanField(default=False)
@@ -25,6 +27,7 @@ class Company(models.Model):
     revenue = models.IntegerField(default=0)
     description = models.TextField()
     is_deleted = models.BooleanField(default=False)
+    objects = CompanyManager()
 
 
 class Job(models.Model):

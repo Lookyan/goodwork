@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^settings/$', 'work.views.settings', name='settings'),
     url(r'^add/$', 'work.views.add', name='add'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
+    url(r'^companyjs/$', 'work.views.companyjs', name='companyjs'),
 ]

@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from goodwork.forms import SignUpForm
 from django.contrib.auth.decorators import login_required
+from work.models import Company
 
 
 def home(request):
@@ -62,3 +64,11 @@ def add(request):
         type = request.POST['type']
         if type == 'review':
             return render(request, 'add-review.html', {})
+
+
+def companyjs(request):
+    term = request.GET['term']
+    if len(term) < 3:
+        return HttpResponseBadRequest()
+    data = Company.objects.get_by_name_part(term)
+    return JsonResponse(data, safe=False)
