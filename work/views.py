@@ -61,12 +61,21 @@ def add(request):
     if request.method == 'GET':
         company_add_form = CompanyAddForm()
         return render(request, 'add.html', {'form': company_add_form})
-    elif request.method == 'POST':
-        type = request.POST.get('type')
-        if type is not None:
-            if type == 'review':
-                form = ReviewAddForm()
-                return render(request, 'add-review.html', {'form': form, 'company': request.POST.get('company')})
+    # elif request.method == 'POST':
+    #     type = request.POST.get('type')
+    #     if type is not None:
+    #         if type == 'review':
+    #             form = ReviewAddForm()
+    #             return render(request, 'add-review.html', {'form': form, 'company': request.POST.get('company')})
+
+
+@login_required
+def add_review(request):
+    company = request.GET.get("company")
+    if company is None:
+        return HttpResponseBadRequest()
+    form = ReviewAddForm()
+    return render(request, 'add-review.html', {'form': form, 'company': company})
 
 
 def companyjs(request):

@@ -183,7 +183,16 @@
     $(".ui-helper-hidden-accessible").css("display", "none");
   });
 
-  var clearToSend = false;
+{#  var clearToSend = false;#}
+  var urlMap = {
+      'review': '{% url "add_review" %}',
+      'salary': '',
+      'interview': ''
+  };
+
+  var move_to_add_info = function(type, company) {
+      window.location.href = urlMap[type] + "?company=" + company;
+  };
 
   $(function() {
     var $company = $('#company');
@@ -191,9 +200,9 @@
         $(this).removeClass('invalid');
     });
     $(".choose-company").submit(function (e) {
-        if(clearToSend) {
-            return true;
-        }
+{#        if(clearToSend) {#}
+{#            return true;#}
+{#        }#}
 
         if($.trim($company.val()) == '') {
             $company.addClass('invalid');
@@ -209,8 +218,8 @@
                 $('.company-name').text($('#company').val());
                 $('#add-comp').openModal();
             } else {
-                clearToSend = true;
-                $('.choose-company').submit();
+{#                clearToSend = true;#}
+                move_to_add_info($('select[name=type]').val(), $('#company').val());
             }
         });
         return false;
@@ -223,9 +232,9 @@
             url: frm.attr('action'),
             data: frm.serialize() + "&name=" + $company.val(),
             success: function (data) {
-                $("#add-comp").closeModal();
-                clearToSend = true;
-                $(".choose-company").submit();
+{#                $("#add-comp").closeModal();#}
+{#                clearToSend = true;#}
+                move_to_add_info($('select[name=type]').val(), $('#company').val());
             },
             error: function(data) {
                 alert("К сожалению, компания не может быть создана");
