@@ -186,8 +186,8 @@
 {#  var clearToSend = false;#}
   var urlMap = {
       'review': '{% url "add_review" %}',
-      'salary': '',
-      'interview': ''
+      'salary': '{% url "add_salary" %}',
+      'interview': '{% url "add_interview" %}'
   };
 
   var move_to_add_info = function(type, company) {
@@ -200,9 +200,6 @@
         $(this).removeClass('invalid');
     });
     $(".choose-company").submit(function (e) {
-{#        if(clearToSend) {#}
-{#            return true;#}
-{#        }#}
 
         if($.trim($company.val()) == '') {
             $company.addClass('invalid');
@@ -218,7 +215,6 @@
                 $('.company-name').text($('#company').val());
                 $('#add-comp').openModal();
             } else {
-{#                clearToSend = true;#}
                 move_to_add_info($('select[name=type]').val(), $('#company').val());
             }
         });
@@ -232,8 +228,6 @@
             url: frm.attr('action'),
             data: frm.serialize() + "&name=" + $company.val(),
             success: function (data) {
-{#                $("#add-comp").closeModal();#}
-{#                clearToSend = true;#}
                 move_to_add_info($('select[name=type]').val(), $('#company').val());
             },
             error: function(data) {
