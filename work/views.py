@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect, HttpResponse, Http404
+from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm
+from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm
 from django.contrib.auth.decorators import login_required
 from work.models import Company
 
@@ -67,7 +67,7 @@ def add(request):
 def add_review(request):
     company = request.GET.get("company")
     if company is None:
-        raise redirect('/add')
+        return redirect('/add')
     if not Company.objects.check_company_exists(company):
         return redirect('/add')
     if request.method == 'GET':
@@ -82,9 +82,21 @@ def add_review(request):
             return render(request, 'info-added.html', {})
     return render(request, 'add-review.html', {'form': form, 'company': company})
 
+
 @login_required
 def add_salary(request):
-    pass
+    company = request.GET.get("company")
+    if company is None:
+        return redirect('/add')
+    if not Company.objects.check_company_exists(company):
+        return redirect('/add')
+    if request.method == 'GET':
+        form = SalaryAddForm()
+    else:
+        form = SalaryAddForm(request.POST)
+        if form.is_valid():
+            return render(request, 'info-added.html', {})
+    return render(request, 'add-salary.html', {'company': company, 'form': form})
 
 
 @login_required

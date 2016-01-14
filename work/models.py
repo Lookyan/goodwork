@@ -139,10 +139,28 @@ class Review(models.Model):
 
 class Salary(models.Model):
     user = models.ForeignKey(User, default=None)
-    job = models.ForeignKey('Job')
+    job = models.ForeignKey('JobType')
     company = models.ForeignKey('Company')
     value = models.IntegerField(default=0)
-    experience = models.PositiveSmallIntegerField(default=0)
+
+    LESS_YEAR = 0
+    ONE_YEAR = 1
+    TWO_YEARS = 2
+    THREE_FIVE_YEARS = 3
+    SIX_TEN_YEARS = 6
+    MORE_TEN_YEARS = 10
+
+    EXPERIENCE_CHOICES = (
+        (LESS_YEAR, 'Меньше года'),
+        (ONE_YEAR, 'Один год'),
+        (TWO_YEARS, 'Два года'),
+        (THREE_FIVE_YEARS, '3-5 лет'),
+        (SIX_TEN_YEARS, '6-10 лет'),
+        (MORE_TEN_YEARS, 'Больше 10 лет')
+    )
+
+    experience = models.PositiveSmallIntegerField(choices=EXPERIENCE_CHOICES,
+                                                  default=LESS_YEAR)
     location = models.ForeignKey('City', default=None, null=True, blank=True)
     FULL_TIME = 'FT'
     PART_TIME = 'PT'
@@ -162,6 +180,10 @@ class Salary(models.Model):
     status = models.CharField(max_length=2,
                               choices=EMPLOYMENT_STATUS,
                               default=NOT_CHECKED)
+
+
+class JobType(models.Model):
+    name = models.CharField(max_length=250)
 
 
 class Interview(models.Model):

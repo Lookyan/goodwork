@@ -170,20 +170,22 @@
       source: "/companyjs/",
       minLength: 3
     });
-    $company.data("ui-autocomplete")
-            ._renderItem = function(ul, item) {
-        return $("<li></li>")
-                            .data("item.autocomplete", item)
-                            .append("<a>" + item.value + "</a>")
-                            .appendTo(ul);
-    };
+    if($company.data("ui-autocomplete")) {
+        $company.data("ui-autocomplete")
+                ._renderItem = function (ul, item) {
+            return $("<li></li>")
+                    .data("item.autocomplete", item)
+                    .append("<a>" + item.value + "</a>")
+                    .appendTo(ul);
+        };
+    }
     $(".ui-autocomplete").addClass("dropdown-content active")
             .css("opacity", 1)
             .css("max-height", "200px");
     $(".ui-helper-hidden-accessible").css("display", "none");
   });
 
-{#  var clearToSend = false;#}
+
   var urlMap = {
       'review': '{% url "add_review" %}',
       'salary': '{% url "add_salary" %}',
@@ -236,6 +238,12 @@
         });
         return false;
     });
+  });
+
+  $(function() {
+      $('.salary-range').change(function() {
+          $('#salary-value').text($(this).val())
+      });
   });
 
 </script>

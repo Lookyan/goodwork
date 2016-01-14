@@ -356,3 +356,11 @@ ul.over-hidden {
 .input-field .prefix.active {
     color: #7cb342;
 }
+
+input[type=range]+.thumb {
+    background-color: #558b2f;
+}
+
+input[type=range]+.thumb .value {
+    color: #558b2f;
+}

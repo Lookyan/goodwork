@@ -3,7 +3,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from work.models import Profile, Company, Review
+from work.models import Profile, Company, Review, Salary
 from django.forms import ModelForm
 
 
@@ -67,4 +67,21 @@ class ReviewAddForm(ModelForm):
         widgets = {
             'pros': forms.Textarea(attrs={'class': 'materialize-textarea'}),
             'cons': forms.Textarea(attrs={'class': 'materialize-textarea'})
+        }
+
+
+class SalaryAddForm(ModelForm):
+    job_name = forms.CharField()
+
+    class Meta:
+        model = Salary
+        fields = ['job_name', 'value', 'experience', 'status']
+        labels = {
+            'job_name': 'Должность',
+            'value': 'Уровень зароботной платы',
+            'experience': 'Опыт работы',
+            'status': 'Статус'
+        }
+        widgets = {
+            'value': forms.NumberInput(attrs={'type': 'range', 'min': '10', 'max': '1000', 'class': 'salary-range'})
         }
