@@ -52,7 +52,6 @@ class CompanyAddForm(ModelForm):
 
 
 class ReviewAddForm(ModelForm):
-    company_name = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = Review

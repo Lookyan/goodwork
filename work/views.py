@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, Http404
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -67,10 +67,20 @@ def add(request):
 def add_review(request):
     company = request.GET.get("company")
     if company is None:
-        return HttpResponseBadRequest()
-    form = ReviewAddForm()
+        raise redirect('/add')
+    if not Company.objects.check_company_exists(company):
+        return redirect('/add')
+    if request.method == 'GET':
+        form = ReviewAddForm()
+    else:
+        form = ReviewAddForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.company = Company.objects.get(name__iexact=company)
+            review.user = request.user
+            review.save()
+            return render(request, 'info-added.html', {})
     return render(request, 'add-review.html', {'form': form, 'company': company})
-
 
 @login_required
 def add_salary(request):
@@ -96,11 +106,10 @@ def company_check(request):
     name = request.GET.get('name')
     if name is None:
         return HttpResponseBadRequest
-    try:
-        Company.objects.get(name__iexact=name.strip())
-    except Company.DoesNotExist:
+    if Company.objects.check_company_exists(name):
+        return JsonResponse({'result': True})
+    else:
         return JsonResponse({'result': False})
-    return JsonResponse({'result': True})
 
 
 @login_required
