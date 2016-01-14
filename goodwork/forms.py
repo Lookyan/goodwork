@@ -3,7 +3,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from work.models import Profile, Company
+from work.models import Profile, Company, Review
 from django.forms import ModelForm
 
 
@@ -50,9 +50,22 @@ class CompanyAddForm(ModelForm):
             'website': forms.TextInput(attrs={'value': 'http://'})
         }
 
-    # def save(self, commit=True):
-    #     company = super(CompanyAddForm, self).save(commit=False)
-    #     company.name = self.cleaned_data["name"]
-    #     if commit:
-    #         company.save()
-    #     return company
+
+class ReviewAddForm(ModelForm):
+    company_name = forms.CharField(widget=forms.HiddenInput())
+
+    class Meta:
+        model = Review
+        fields = ['rating', 'is_current_employee', 'status', 'title', 'pros', 'cons']
+        labels = {
+            'rating': 'Оцените работу в компании',
+            'is_current_employee': 'Вы являетесь действующим сотрудником?',
+            'status': 'Тип занятости',
+            'title': 'Заголовок отзыва',
+            'pros': 'Преимущества работы в компании',
+            'cons': 'Недостатки работы в компании'
+        }
+        widgets = {
+            'pros': forms.Textarea(attrs={'class': 'materialize-textarea'}),
+            'cons': forms.Textarea(attrs={'class': 'materialize-textarea'})
+        }

@@ -98,7 +98,21 @@ class Review(models.Model):
     user = models.ForeignKey(User, default=None)
     company = models.ForeignKey(Company)
     is_publicated = models.BooleanField(default=False)
-    rating = models.PositiveSmallIntegerField(default=0)
+
+    R1 = 1
+    R2 = 2
+    R3 = 3
+    R4 = 4
+    R5 = 5
+    RATING_CHOICES = (
+        (R1, '1'),
+        (R2, '2'),
+        (R3, '3'),
+        (R4, '4'),
+        (R5, '5')
+    )
+    rating = models.PositiveSmallIntegerField(choices=RATING_CHOICES,
+                                              default=R5)
     is_current_employee = models.BooleanField(default=False)
     FULL_TIME = 'FT'
     PART_TIME = 'PT'
@@ -108,12 +122,12 @@ class Review(models.Model):
     NOT_CHECKED = 'NC'
 
     EMPLOYMENT_STATUS = (
-        (FULL_TIME, 'Full Time'),
-        (PART_TIME, 'Part Time'),
-        (CONTRACT, 'Contract'),
-        (INTERN, 'Intern'),
-        (FREELANCE, 'Freelance'),
-        (NOT_CHECKED, 'Not Checked'),
+        (FULL_TIME, 'Полная занятость'),
+        (PART_TIME, 'Частичная занятость'),
+        (CONTRACT, 'Проектная работа'),
+        (INTERN, 'Стажировка'),
+        (FREELANCE, 'Удаленная работа'),
+        (NOT_CHECKED, 'Не выбрано'),
     )
     status = models.CharField(max_length=2,
                               choices=EMPLOYMENT_STATUS,

@@ -45,19 +45,17 @@
             <h5>Расскажите немного об этой компании</h5>
             {% csrf_token %}
             {% for field in form %}
-                {% if field.name != "username" %}
-                    <div class="row">
-                        {% if field.errors %}
-                            <div class="col s12">
-                               {{ field.errors }}
-                            </div>
-                        {% endif %}
-                        <div class="col s12 input-field">
-                            {{ field }}
-                            <label>{{ field.label }}</label>
+                <div class="row">
+                    {% if field.errors %}
+                        <div class="col s12">
+                           {{ field.errors }}
                         </div>
+                    {% endif %}
+                    <div class="col s12 input-field">
+                        {{ field }}
+                        <label>{{ field.label }}</label>
                     </div>
-                {% endif %}
+                </div>
             {% endfor %}
         </div>
         <div class="modal-footer">

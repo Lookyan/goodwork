@@ -1,5 +1,96 @@
 {% extends "base.html" %}
+{% load fieldtype %}
 
 {% block main %}
+    <form action="" method="post">
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <div class="section white z-depth-1">
+                    <div class="row">
+                        <div class="col s12">
+                            <h5 class="center-align light-green-text">
+                                Добавление отзыва
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 info">
+                            <blockquote>
+                                Оставляя анонимную информацию о компании, Вы помогаете соискателям делать правильный
+                                выбор.
+                            </blockquote>
+                            <blockquote>
+                                Однако настоятельно просим оставлять только достоверную информацию в соответствии с <a
+                                    href="#" target="_blank">правилами.</a>
+                            </blockquote>
+                            <blockquote>
+                                Все данные, которые Вы вводите абсолютно анонимны. <a href="#"
+                                                                                      target="_blank">Подробнее</a>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div class="section light-green company-section valign-wrapper">
+                        <h4 class="valign center-block white-text">{{ company }}</h4>
+                    </div>
+                        {% csrf_token %}
+                        {% for field in form %}
 
+                            <div class="row">
+                                {% if field.errors %}
+                                    <div class="col s12">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                                    {% if field|fieldtype == "Select" %}
+                                    <div class="col s4 input-field">
+                                        <h6><b>{{ field.label }}</b></h6>
+                                        {{ field }}
+                                    </div>
+                                    {% elif field|fieldtype == "CheckboxInput" %}
+                                      <div class="col s12">
+                                      <h6><b>{{ field.label }}</b></h6>
+                                      <div class="switch">
+                                        <label>
+                                          Нет
+                                          {{ field }}
+                                          <span class="lever"></span>
+                                          Да
+                                        </label>
+                                      </div>
+                                      </div>
+                                    {% elif field|fieldtype == "Textarea" %}
+                                    <div class="col s8 input-field">
+                                        {% if field.html_name == "pros" %}
+                                        <i class="material-icons prefix">create</i>
+                                        {% endif %}
+                                        {% if field.html_name == "cons" %}
+                                        <i class="material-icons prefix">create</i>
+                                        {% endif %}
+                                        {{ field }}
+                                        <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                                    </div>
+                                    {% elif field|fieldtype == "TextInput" %}
+                                    <div class="col s6 input-field">
+                                        {{ field }}
+                                        {% if field.name != "company_name" %}
+                                            <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                                        {% endif %}
+                                    </div>
+                                    {% elif field|fieldtype == "HiddenInput" %}
+                                        {{ field }}
+                                    {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="row">
+                            <div class="col s3 input-field">
+                                <button type="submit" class="btn medium light-green">
+                                    Добавить отзыв
+                                </button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}

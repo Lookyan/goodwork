@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from goodwork.forms import SignUpForm, CompanyAddForm
+from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm
 from django.contrib.auth.decorators import login_required
 from work.models import Company
 
@@ -65,7 +65,8 @@ def add(request):
         type = request.POST.get('type')
         if type is not None:
             if type == 'review':
-                return render(request, 'add-review.html', {})
+                form = ReviewAddForm()
+                return render(request, 'add-review.html', {'form': form, 'company': request.POST.get('company')})
 
 
 def companyjs(request):
@@ -89,6 +90,7 @@ def company_check(request):
     return JsonResponse({'result': True})
 
 
+@login_required
 def company_create_js(request):
     form = CompanyAddForm(request.POST)
     if form.is_valid():

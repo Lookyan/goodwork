@@ -233,16 +233,22 @@ input[type='text'].custom-input {
     margin: 0px;
 }
 
-input[type=text]:focus:not([readonly]) {
+input[type=text]:focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid #c5e1a5;
     box-shadow: 0 1px 0 0 #c5e1a5;
+}
+
+input[type=text]:focus:not([readonly])+label,
+textarea.materialize-textarea:focus:not([readonly])+label {
+    color: #558b2f;
 }
 
 .blank-place {
     width: 25px;
 }
 
-.select-wrapper span.caret {
+.card .select-wrapper span.caret {
     color: white;
 }
 
@@ -319,4 +325,34 @@ ul.over-hidden {
 
 .errorlist li {
     color: red;
+}
+
+.info blockquote {
+    border-left: 5px solid #7cb342;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background: #8bc34a;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background: #558b2f;
+}
+
+.company-section {
+    height: 150px;
+}
+
+.center-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-field label {
+    color: #212121;
+    font-weight: bold;
+}
+
+.input-field .prefix.active {
+    color: #7cb342;
 }
