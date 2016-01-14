@@ -71,13 +71,13 @@ class Job(models.Model):
     NOT_CHECKED = 'NC'
 
     TYPE_OF_JOB_CHOICES = (
-        (FULL_TIME, 'Full Time'),
-        (PART_TIME, 'Part Time'),
-        (CONTRACT, 'Contract'),
-        (INTERNSHIP, 'Internship'),
-        (TEMPORARY, 'Temporary'),
-        (ENTRY_LEVEL, 'Entry Level'),
-        (NOT_CHECKED, 'Not checked'),
+        (FULL_TIME, 'Полная занятость'),
+        (PART_TIME, 'Частичная занятость'),
+        (CONTRACT, 'Проектная работа'),
+        (INTERNSHIP, 'Стажировка'),
+        (TEMPORARY, 'Временная работа'),
+        (ENTRY_LEVEL, 'Начало карьеры'),
+        (NOT_CHECKED, 'Не выбрано'),
     )
     type = models.CharField(max_length=2,
                             choices=TYPE_OF_JOB_CHOICES,
@@ -152,12 +152,12 @@ class Salary(models.Model):
     NOT_CHECKED = 'NC'
 
     EMPLOYMENT_STATUS = (
-        (FULL_TIME, 'Full Time'),
-        (PART_TIME, 'Part Time'),
-        (CONTRACT, 'Contract'),
-        (INTERN, 'Intern'),
-        (FREELANCE, 'Freelance'),
-        (NOT_CHECKED, 'Not Checked'),
+        (FULL_TIME, 'Полная занятость'),
+        (PART_TIME, 'Частичная занятость'),
+        (CONTRACT, 'Проектная работа'),
+        (INTERN, 'Стажер'),
+        (FREELANCE, 'Удаленная работа'),
+        (NOT_CHECKED, 'Не выбрано'),
     )
     status = models.CharField(max_length=2,
                               choices=EMPLOYMENT_STATUS,
@@ -171,9 +171,9 @@ class Interview(models.Model):
     NEUTRAL = '?'
 
     TYPE_EXPERIENCE = (
-        (POSITIVE, 'Positive'),
-        (NEGATIVE, 'Negative'),
-        (NEUTRAL, 'Neutral')
+        (POSITIVE, 'Позитивный'),
+        (NEGATIVE, 'Негативный'),
+        (NEUTRAL, 'Нейтральный')
     )
     experience = models.CharField(max_length=1,
                                   choices=TYPE_EXPERIENCE,
@@ -190,12 +190,12 @@ class Interview(models.Model):
     NOT_CHECKED = 'NC'
 
     TYPE_DIFFICULTY = (
-        (VERY_EASY, 'Very easy'),
-        (EASY, 'Easy'),
-        (AVERAGE, 'Average'),
-        (DIFFICULT, 'Difficult'),
-        (VERY_DIFFICULT, 'Very difficult'),
-        (NOT_CHECKED, 'Not Checked'),
+        (VERY_EASY, 'Очень просто'),
+        (EASY, 'Просто'),
+        (AVERAGE, 'Средней сложности'),
+        (DIFFICULT, 'Сложно'),
+        (VERY_DIFFICULT, 'Очень сложно'),
+        (NOT_CHECKED, 'Не выбрано'),
     )
     difficulty = models.CharField(max_length=2,
                                   choices=TYPE_DIFFICULTY,
@@ -205,10 +205,10 @@ class Interview(models.Model):
     NO = 'N'
 
     TYPE_OFFER = (
-        (YES, 'Yes'),
-        (DECLINED, 'Declined'),
-        (NO, 'No'),
-        (NOT_CHECKED, 'Not Checked'),
+        (YES, 'Да'),
+        (DECLINED, 'Да, но было отклонено'),
+        (NO, 'Нет'),
+        (NOT_CHECKED, 'Не выбрано'),
     )
     offer = models.CharField(max_length=1,
                              choices=TYPE_OFFER,
@@ -219,9 +219,9 @@ class Interview(models.Model):
     MONTHS = 'M'
 
     DURATION_IN = (
-        (DAYS, 'Days'),
-        (WEEKS, 'Weeks'),
-        (MONTHS, 'Months'),
+        (DAYS, 'Дней'),
+        (WEEKS, 'Недель'),
+        (MONTHS, 'Месяцев'),
     )
     duration = models.CharField(max_length=1,
                                 choices=DURATION_IN,
