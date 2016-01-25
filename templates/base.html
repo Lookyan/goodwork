@@ -5,6 +5,9 @@
     <title>Моя работа</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/owl.carousel.css"/>
+    <link rel="stylesheet" type="text/css" href="/owl.theme.css"/>
+    <link rel="stylesheet" type="text/css" href="/owl.transitions.css"/>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -121,6 +124,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 <script src="/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/owl.carousel.min.js"></script>
 
 <!--<script src="emerald.js"></script>-->
 <!--<script type='text/javascript' src='http://emerald.sekizgen.net/wp-content/plugins/bwp-minify/min/?f=wp-content/themes/material-emerald/js/materialize.min.js,wp-content/themes/material-emerald/js/jquery.flexslider-min.js,wp-content/themes/material-emerald/js/imagesloaded.pkgd.min.js,wp-includes/js/hoverIntent.min.js,wp-content/themes/material-emerald/js/superfish.js,wp-content/themes/material-emerald/js/masonry.pkgd.min.js,wp-content/themes/material-emerald/js/equalize.min.js,wp-content/themes/material-emerald/js/jquery.magnific-popup.min.js,wp-content/themes/material-emerald/js/mobile-detect.min.js,wp-content/themes/material-emerald/js/jquery.sticky.js,wp-content/themes/material-emerald/js/scripts.js,wp-includes/js/comment-reply.min.js,wp-content/plugins/js_composer/assets/js/js_composer_front.js'></script>-->
@@ -245,6 +249,19 @@
           $('#salary-value').text($(this).val())
       });
   });
+
+ $(document).ready(function() {
+
+      $("#companies-best").owlCarousel({
+
+          navigation : false, // Show next and prev buttons
+          slideSpeed : 300,
+          paginationSpeed : 400,
+          singleItem: true
+
+      });
+
+ });
 
 </script>
 </body>

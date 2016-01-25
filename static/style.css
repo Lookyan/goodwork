@@ -1,3 +1,8 @@
+@font-face {
+font-family: ttdrugs;
+src: url("/TTDrugs-Thin.otf") format("opentype");
+}
+
 html {
     padding: 0px;
     margin: 0px;
@@ -47,7 +52,7 @@ main {
 }
 
 .shift {
-    height: 675px;
+    height: 605px;
 }
 
 .nav-search {
@@ -363,4 +368,22 @@ input[type=range]+.thumb {
 
 input[type=range]+.thumb .value {
     color: #558b2f;
+}
+
+#companies-best {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+#companies-best .item img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 150px;
+}
+
+.land-header {
+    color: #7CB342;
+    font-family: ttdrugs;
+    font-weight: bold;
 }
