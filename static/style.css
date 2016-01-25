@@ -387,3 +387,11 @@ input[type=range]+.thumb .value {
     font-family: ttdrugs;
     font-weight: bold;
 }
+
+.transit {
+    fill: #7CB342;
+}
+
+.transit-top {
+    margin-bottom: -7px;
+}
