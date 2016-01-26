@@ -104,6 +104,18 @@ def add_interview(request):
     pass
 
 
+def companies(request):
+    pass
+
+
+def interviews(request):
+    pass
+
+
+def salaries(request):
+    pass
+
+
 def companyjs(request):
     term = request.GET.get('term')
     if term is None:

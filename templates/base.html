@@ -29,7 +29,7 @@
                 <a href="#" onclick="return false;"><i class="mdi-action-search left"></i></a>
 
                 <div class="material-search-overlay circle material-search-overlay-color-bg material-search-overlay-hidden"></div>
-                <form class="material-search-form material-search-form-hidden" action="//emerald.sekizgen.net"
+                <form class="material-search-form material-search-form-hidden" action="/search/"
                       autocomplete="off">
                     <div class="material-search-form-container">
                         <a href="#" onclick="return false;" class="material-search-close"><i
@@ -81,9 +81,9 @@
             </div>
 
             <li><a href="{% url 'jobs' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Вакансии"><i class="material-icons">work</i></a></li>
-            <li><a href="badges.html" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Компании"><i class="material-icons">business</i></a></li>
-            <li><a href="collapsible.html" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Зарплаты"><i class="material-icons">local_atm</i></a></li>
-            <li><a href="collapsible.html" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Собеседования"><i class="material-icons">contact_phone</i></a></li>
+            <li><a href="{% url 'companies' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Компании"><i class="material-icons">business</i></a></li>
+            <li><a href="{% url 'salaries' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Зарплаты"><i class="material-icons">local_atm</i></a></li>
+            <li><a href="{% url 'interviews' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Собеседования"><i class="material-icons">contact_phone</i></a></li>
         </ul>
     </div>
 </nav>
