@@ -395,3 +395,8 @@ input[type=range]+.thumb .value {
 .transit-top {
     margin-bottom: -7px;
 }
+
+.dr-font {
+    font-family: ttdrugs;
+    font-weight: bold;
+}
