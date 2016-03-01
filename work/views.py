@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm
 from django.contrib.auth.decorators import login_required
-from work.models import Company
+from work.models import Company, JobType
 
 
 def home(request):
@@ -95,6 +95,15 @@ def add_salary(request):
     else:
         form = SalaryAddForm(request.POST)
         if form.is_valid():
+            job_name = request.POST.get('job_name')
+            if job_name is None or job_name == '':
+                return redirect('/add')
+            job_type = JobType.objects.create_if_not_exist(job_name)
+            salary = form.save(commit=False)
+            salary.user = request.user
+            salary.job = job_type
+            salary.company = Company.objects.get(name__iexact=company)
+            salary.save()
             return render(request, 'info-added.html', {})
     return render(request, 'add-salary.html', {'company': company, 'form': form})
 
@@ -123,6 +132,16 @@ def companyjs(request):
     if len(term) < 3:
         return HttpResponseBadRequest()
     data = Company.objects.get_by_name_part(term)
+    return JsonResponse(data, safe=False)
+
+
+def position_js(request):
+    position = request.GET.get('term')
+    if position is None:
+        return HttpResponseBadRequest()
+    if len(position) < 3:
+        return HttpResponseBadRequest()
+    data = JobType.objects.get_by_title_part(position)
     return JsonResponse(data, safe=False)
 
 

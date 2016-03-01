@@ -50,12 +50,33 @@
     </form>
 {% endblock %}
 
-{% block additional-scripts %}
+{% block additional_scripts %}
 <script>
  $(function() {
       $('.salary-range').change(function() {
           $('#salary-value').text($(this).val())
       });
   });
+
+$(function() {
+    var $company = $("#id_job_name");
+    $company.autocomplete({
+      source: "{% url 'position_js' %}",
+      minLength: 3
+    });
+    if($company.data("ui-autocomplete")) {
+        $company.data("ui-autocomplete")
+                ._renderItem = function (ul, item) {
+            return $("<li></li>")
+                    .data("item.autocomplete", item)
+                    .append("<a>" + item.value + "</a>")
+                    .appendTo(ul);
+        };
+    }
+    $(".ui-autocomplete").addClass("dropdown-content active")
+            .css("opacity", 1)
+            .css("max-height", "200px");
+    $(".ui-helper-hidden-accessible").css("display", "none");
+});
 </script>
 {% endblock %}

@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'^company/$', 'work.views.companies', name='companies'),
     url(r'^salary/$', 'work.views.salaries', name='salaries'),
     url(r'^interview/$', 'work.views.interviews', name='interviews'),
+    url(r'^posjs/$', 'work.views.position_js', name='position_js'),
 ]

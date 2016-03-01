@@ -2,7 +2,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from managers import CompanyManager
+from managers import CompanyManager, JobTypeManager
 
 
 class Profile(models.Model):
@@ -184,6 +184,7 @@ class Salary(models.Model):
 
 class JobType(models.Model):
     name = models.CharField(max_length=250)
+    objects = JobTypeManager()
 
 
 class Interview(models.Model):
