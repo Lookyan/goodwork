@@ -3,7 +3,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from work.models import Profile, Company, Review, Salary
+from work.models import Profile, Company, Review, Salary, Interview
 from django.forms import ModelForm
 
 
@@ -83,4 +83,21 @@ class SalaryAddForm(ModelForm):
         }
         widgets = {
             'value': forms.NumberInput(attrs={'type': 'range', 'min': '10', 'max': '1000', 'class': 'salary-range'})
+        }
+
+
+class InterviewAddForm(ModelForm):
+    job_name = forms.CharField(label='Должность')
+
+    class Meta:
+        model = Interview
+        fields = ['experience', 'job_name', 'description', 'difficulty', 'offer', 'entire_process', 'duration', 'place']
+        labels = {
+            'experience': 'Опыт',
+            'description': 'Впечатление от собеседования',
+            'difficulty': 'Сложность собеседования',
+            'offer': 'Предложение',
+            'entire_process': 'Весь процесс занял',
+            'duration': '',
+            'place': 'Место проведения'
         }

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm
+from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm, InterviewAddForm
 from django.contrib.auth.decorators import login_required
 from work.models import Company, JobType
 
@@ -110,7 +110,16 @@ def add_salary(request):
 
 @login_required
 def add_interview(request):
-    pass
+    company = request.GET.get("company")
+    if company is None:
+        return redirect('/add')
+    if not Company.objects.check_company_exists(company):
+        return redirect('/add')
+    if request.method == 'GET':
+        form = InterviewAddForm()
+    else:
+        form = InterviewAddForm(request.POST)
+    return render(request, 'add-interview.html', {'company': company, 'form': form})
 
 
 def companies(request):

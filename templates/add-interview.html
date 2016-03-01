@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load fieldtype %}
+
+{% block main %}
+    <form action="" method="post">
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <div class="section white z-depth-1">
+                    <div class="row">
+                        <div class="col s12">
+                            <h5 class="center-align light-green-text">
+                                Добавление информации о собеседовании
+                            </h5>
+                        </div>
+                    </div>
+                    {% include 'add-information.html' %}
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="row">
+                            {% if field|fieldtype == "NumberInput" %}
+                                <div class="col s12 input-field">
+                                    <p class="range-field">
+                                        {{ field }}
+                                    </p>
+                                    <span>Заработная плата: <span id="salary-value">10</span> тысяч рублей</span>
+                                </div>
+                            {% elif field|fieldtype == "TextInput" %}
+                                <div class="col s6 input-field">
+                                    {{ field }}
+                                    {% if field.name != "company_name" %}
+                                        <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                                    {% endif %}
+                                </div>
+                            {% elif field|fieldtype == "Select" %}
+                                    <div class="col s4 input-field">
+                                        <h6><b>{{ field.label }}</b></h6>
+                                        {{ field }}
+                                    </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col s8">
+                            <button class="btn medium light-green" type="submit">Добавить информацию о зарплате</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+
+$(function() {
+    var $company = $("#id_job_name");
+    $company.autocomplete({
+      source: "{% url 'position_js' %}",
+      minLength: 3
+    });
+    if($company.data("ui-autocomplete")) {
+        $company.data("ui-autocomplete")
+                ._renderItem = function (ul, item) {
+            return $("<li></li>")
+                    .data("item.autocomplete", item)
+                    .append("<a>" + item.value + "</a>")
+                    .appendTo(ul);
+        };
+    }
+    $(".ui-autocomplete").addClass("dropdown-content active")
+            .css("opacity", 1)
+            .css("max-height", "200px");
+    $(".ui-helper-hidden-accessible").css("display", "none");
+});
+</script>
+{% endblock %}
