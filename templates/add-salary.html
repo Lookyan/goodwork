@@ -49,3 +49,13 @@
         </div>
     </form>
 {% endblock %}
+
+{% block additional-scripts %}
+<script>
+ $(function() {
+      $('.salary-range').change(function() {
+          $('#salary-value').text($(this).val())
+      });
+  });
+</script>
+{% endblock %}

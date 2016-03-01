@@ -71,14 +71,13 @@ class ReviewAddForm(ModelForm):
 
 
 class SalaryAddForm(ModelForm):
-    job_name = forms.CharField()
+    job_name = forms.CharField(label='Должность')
 
     class Meta:
         model = Salary
         fields = ['job_name', 'value', 'experience', 'status']
         labels = {
-            'job_name': 'Должность',
-            'value': 'Уровень зароботной платы',
+            'value': 'Уровень заработной платы',
             'experience': 'Опыт работы',
             'status': 'Статус'
         }
