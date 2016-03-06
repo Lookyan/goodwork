@@ -282,9 +282,14 @@ ul.over-hidden {
     background-color: #558b2f;
 }
 
-.vacancy-image {
+.collapsible-header .vacancy-image {
     margin-top: 20px;
+    margin-bottom: 20px;
     border: 1px solid #bdbdbd;
+    width: 70px;
+    height: 70px;
+    display: block;
+    text-align: center;
 }
 
 .collapsible-header > .row {

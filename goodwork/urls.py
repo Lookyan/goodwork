@@ -19,8 +19,9 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'work.views.home', name='home'),
-    url(r'^job/$', 'work.views.jobs', name='jobs'),
+    url(r'^search/job/$', 'work.views.jobs', name='jobs'),
     url(r'^job/(\d*)', 'work.views.job', name='job'),
+    #url(r'^/search/company/$', 'work.views.company_search', name='company_search'),
     url(r'^signin/$', 'work.views.signin', name='signin'),
     url(r'^signup/$', 'work.views.signup', name='signup'),
     url(r'^settings/$', 'work.views.settings', name='settings'),
@@ -32,8 +33,8 @@ urlpatterns = [
     url(r'^companyjs/$', 'work.views.companyjs', name='companyjs'),
     url(r'^companycheck/$', 'work.views.company_check', name='company_check'),
     url(r'^companycreate/$', 'work.views.company_create_js', name='company_create_js'),
-    url(r'^company/$', 'work.views.companies', name='companies'),
-    url(r'^salary/$', 'work.views.salaries', name='salaries'),
-    url(r'^interview/$', 'work.views.interviews', name='interviews'),
+    url(r'^search/company/$', 'work.views.companies', name='companies'),
+    url(r'^search/salary/$', 'work.views.salaries', name='salaries'),
+    url(r'^search/interview/$', 'work.views.interviews', name='interviews'),
     url(r'^posjs/$', 'work.views.position_js', name='position_js'),
 ]

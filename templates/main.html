@@ -4,25 +4,27 @@
 <div class="bgrnd valign-wrapper">
     <div class="row valign center-align opacity">
         <div class="col s12">
-            <div class="card light-green hoverable width-corr">
-                <div class="card-content white-text">
-                    <span class="card-title"><h4>Люби свою работу!</h4></span>
-                    <div class="input-field">
-                        <select>
-                            <option value="" disabled selected>Что ищем?</option>
-                            <option value="1">Вакансии</option>
-                            <option value="2">Компании</option>
-                            <option value="3">Собеседования</option>
-                            <option value="4">Зарплаты</option>
-                        </select>
+            <form id="js-search" method="get">
+                <div class="card light-green hoverable width-corr">
+                    <div class="card-content white-text">
+                        <h4><span class="card-title">Люби свою работу!</span></h4>
+                        <div class="input-field">
+                            <select id="js-search-type">
+                                <option value="" disabled selected>Что ищем?</option>
+                                <option value="vacancy">Вакансии</option>
+                                <option value="company">Компании</option>
+                                <option value="interview">Собеседования</option>
+                                <option value="salary">Зарплаты</option>
+                            </select>
+                        </div>
+                        <input type="text" id="js-query" class="custom-input" placeholder="Название"/>
                     </div>
-                    <input type="text" class="custom-input" placeholder="Название"/>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light green darken-4 wh-fixer" type="submit" name="action">Найти
+                        </button>
+                    </div>
                 </div>
-                <div class="card-action">
-                    <button class="btn waves-effect waves-light green darken-4 wh-fixer" type="submit" name="action">Найти
-                    </button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -250,6 +252,23 @@
           singleItem: true
 
       });
+
+     $("#js-search").submit(function(e) {
+         e.preventDefault();
+         var urlMap = {
+             vacancy: '{% url 'companies' %}',
+             company: '{% url 'companies' %}',
+             interview: '{% url 'interviews' %}',
+             salary: '{% url 'salaries' %}'
+         };
+         var q = $("#js-query").val();
+         var url = urlMap[$("#js-search-type").val()];
+         if(!url) {
+             $($("#js-search-type").siblings()[1]).css('border-bottom', 'solid 1px red');
+             return;
+         }
+         window.location.href = url + "?q=" + q;
+     });
 
  });
 </script>

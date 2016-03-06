@@ -123,7 +123,11 @@ def add_interview(request):
 
 
 def companies(request):
-    pass
+    company = request.GET.get('q')
+    if company is None:
+        return redirect('/')
+    comps = Company.objects.filter(name__icontains=company)
+    return render(request, 'search-company.html', {'companies': comps, 'q': company})
 
 
 def interviews(request):
