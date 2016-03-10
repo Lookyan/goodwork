@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm, InterviewAddForm
 from django.contrib.auth.decorators import login_required
-from work.models import Company, JobType
+from work.models import Company, JobType, Salary
 
 
 def home(request):
@@ -135,7 +135,21 @@ def interviews(request):
 
 
 def salaries(request):
-    pass
+    company = request.GET.get('q')
+    if company is None:
+        return redirect('/')
+    salars = Salary.objects.filter(company__name__icontains=company)
+
+    # aggregate salaries by positions
+    # salar_agg = Salary.objects.filter(company__name__icontains=company).annotate()
+    avg_sals = Salary.objects.raw('''SELECT c.name, j.name, AVG(s.value)
+                                     FROM work_salary s
+                                     JOIN work_jobtype j ON j.id = s.job_id
+                                     JOIN work_company c ON c.id = s.company_id
+                                     WHERE c.id = %d
+                                     GROUP BY j.id
+                                  ''', [11])
+    return render(request, 'search-salary.html', {'salaries': salars, 'q': company, 'avg_sals': avg_sals})
 
 
 def companyjs(request):
