@@ -18,11 +18,9 @@
                     {% for field in form %}
                         <div class="row">
                             {% if field|fieldtype == "NumberInput" %}
-                                <div class="col s12 input-field">
-                                    <p class="range-field">
-                                        {{ field }}
-                                    </p>
-                                    <span>Заработная плата: <span id="salary-value">10</span> тысяч рублей</span>
+                                <div class="col s4 input-field">
+                                    <h6><b>{{ field.label }}</b></h6>
+                                    {{ field }}
                                 </div>
                             {% elif field|fieldtype == "TextInput" %}
                                 <div class="col s6 input-field">
