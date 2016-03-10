@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load get_item %}
 
 {% block main %}
     <div class="row">
@@ -32,7 +33,7 @@
     <div class="row">
         <div class="col s10 offset-s1">
             <span>
-                Найдено {{ salaries | length }} компаний:
+                Найдено {{ companies | length }} компаний:
             </span>
         </div>
     </div>
@@ -40,19 +41,19 @@
     <div class="row">
         <div class="col s10 offset-s1">
             <ul class="collapsible" data-collapsible="expandable">
-                {% for salary in salaries %}
+                {% for company in companies %}
                 <li>
                     <div class="collapsible-header">
                         <div class="row">
                             <div class="col s2">
-                                {% if salary.company.logo %}
-                                <img src="/uploads/{{ salary.company.logo }}" class="circle responsive-img vacancy-image"/>
+                                {% if company.logo %}
+                                <img src="/uploads/{{ company.logo }}" class="circle responsive-img vacancy-image"/>
                                 {% else %}
                                 <i class="material-icons md-48 circle responsive-img vacancy-image"></i>
                                 {% endif %}
                             </div>
                             <div class="col s6">
-                                <a href="#" class="vacancy-link" target="_blank">{{ salary.company.name }}</a>
+                                <a href="#" class="vacancy-link" target="_blank">{{ company.name }}</a>
                             </div>
                             <div class="col s4">
                                 <i class="material-icons md-48 light-green-text text-darken-2 right expand-icon">expand_more</i>
@@ -63,36 +64,51 @@
                         <div class="row">
                             <div class="col s12 null-padd">
                                 <ul class="tabs over-hidden">
-                                    <li class="tab col s3"><a href="#id{{ salary.id }}_1"
+                                    <li class="tab col s3"><a href="#id{{ company.id }}_1"
                                                               class="active light-green-text text-darken-2">Уровень зарплат</a></li>
-                                    <li class="tab col s3"><a href="#id{{ salary.id }}_2" class="light-green-text text-darken-2">О компании</a></li>
+                                    <li class="tab col s3"><a href="#id{{ company.id }}_2" class="light-green-text text-darken-2">О компании</a></li>
                                 </ul>
                             </div>
-                            <div id="id{{ salary.id }}_1" class="col s12">
+                            <div id="id{{ company.id }}_1" class="col s12">
                                 <p>
-                                    {{ avg_sals | length }}
+                                    <table class="striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Позиция</th>
+                                                <th>Средняя зарплата</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for x in company.get_pos_avg_salary %}
+                                                <tr>
+                                                    <td>{{ x.1 }}</td>
+                                                    <td>{{ x.2 }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </p>
                             </div>
-                            <div id="id{{ salary.id }}_2" class="col s12">
+                            <div id="id{{ company.id }}_2" class="col s12">
                                 <blockquote>
                                     Вебсайт:
-                                    {% if salary.company.website %}
-                                    <a target="_blank" href="{{ salary.company.website }}">{{ salary.company.website }}</a>
+                                    {% if company.website %}
+                                    <a target="_blank" href="{{ company.website }}">{{ company.website }}</a>
                                     {% else %}
                                     Неизвестно
                                     {% endif %}
                                 </blockquote>
                                 <blockquote>
                                     Основана в:
-                                    {% if salary.company.founded %}
-                                    {{ salary.company.founded }}
+                                    {% if company.founded %}
+                                    {{ company.founded }}
                                     {% else %}
                                     Неизвестно
                                     {% endif %}
                                 </blockquote>
                                 <blockquote>
                                     Количество сотрудников:
-                                    {{ salary.company.get_size_display }}
+                                    {{ company.get_size_display }}
                                 </blockquote>
 
                             </div>

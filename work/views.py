@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm, InterviewAddForm
 from django.contrib.auth.decorators import login_required
 from work.models import Company, JobType, Salary
+from django.db import connection
 
 
 def home(request):
@@ -138,18 +139,21 @@ def salaries(request):
     company = request.GET.get('q')
     if company is None:
         return redirect('/')
-    salars = Salary.objects.filter(company__name__icontains=company)
+    comps = Company.objects.filter(name__icontains=company)
 
     # aggregate salaries by positions
-    # salar_agg = Salary.objects.filter(company__name__icontains=company).annotate()
-    avg_sals = Salary.objects.raw('''SELECT c.name, j.name, AVG(s.value)
-                                     FROM work_salary s
-                                     JOIN work_jobtype j ON j.id = s.job_id
-                                     JOIN work_company c ON c.id = s.company_id
-                                     WHERE c.id = %d
-                                     GROUP BY j.id
-                                  ''', [11])
-    return render(request, 'search-salary.html', {'salaries': salars, 'q': company, 'avg_sals': avg_sals})
+    avg_salaries = {}
+    cursor = connection.cursor()
+    for comp in comps:
+        cursor.execute('''SELECT c.name, j.name, AVG(s.value)
+                                         FROM work_salary s
+                                         JOIN work_jobtype j ON j.id = s.job_id
+                                         JOIN work_company c ON c.id = s.company_id
+                                         WHERE c.id = %s
+                                         GROUP BY j.id
+                                      ''', [comp.id])
+        avg_salaries[comp.id] = cursor.fetchall()
+    return render(request, 'search-salary.html', {'companies': comps, 'q': company, 'avg_sals': avg_salaries})
 
 
 def companyjs(request):

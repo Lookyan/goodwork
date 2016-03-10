@@ -3,6 +3,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from managers import CompanyManager, JobTypeManager
+from django.db import connection
 
 
 class Profile(models.Model):
@@ -52,6 +53,17 @@ class Company(models.Model):
     is_publicated = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
     objects = CompanyManager()
+
+    def get_pos_avg_salary(self):
+        cursor = connection.cursor()
+        cursor.execute('''SELECT c.name, j.name, AVG(s.value)
+                          FROM work_salary s
+                          JOIN work_jobtype j ON j.id = s.job_id
+                          JOIN work_company c ON c.id = s.company_id
+                          WHERE c.id = %s
+                          GROUP BY j.id
+                       ''', [self.id])
+        return cursor.fetchall()
 
 
 class Job(models.Model):
