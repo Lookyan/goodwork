@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/owl.carousel.css"/>
     <link rel="stylesheet" type="text/css" href="/owl.theme.css"/>
     <link rel="stylesheet" type="text/css" href="/owl.transitions.css"/>
+    <link rel="stylesheet" type="text/css" href="/Pe-icon-7-stroke.css" />
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -26,7 +27,7 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
 
             <div class="nav-search right">
-                <a href="#" onclick="return false;"><i class="mdi-action-search left"></i></a>
+                <a href="#" onclick="return false;"><i class="pe-7s-search left"></i></a>
 
                 <div class="material-search-overlay circle material-search-overlay-color-bg material-search-overlay-hidden"></div>
                 <form class="material-search-form material-search-form-hidden" action="/search/"
@@ -50,13 +51,13 @@
             {% if user.is_authenticated %}
             <div class="right">
                 <a class="tooltipped" href="{% url 'logout' %}" data-position="bottom" data-delay="5" data-tooltip="Выйти">
-                    <i class="material-icons">arrow_forward</i>
+                    <i class="pe-7s-angle-right-circle"></i>
                 </a>
             </div>
             {% endif %}
             <div class="right">
                 <a class="tooltipped" href="{% url 'add' %}" data-position="bottom" data-delay="5" data-tooltip="Добавить информацию">
-                    <i class="material-icons">add_circle</i>
+                    <i class="pe-7s-plus"></i>
                 </a>
             </div>
             <div class="right">
@@ -73,17 +74,17 @@
                     Войти или зарегистрироваться
                 {% endif %}
                 ">
-                    <i class="material-icons">account_circle</i>
+                    <i class="pe-7s-user"></i>
                 </a>
             </div>
             <div class="right blank-place">
 
             </div>
 
-            <li><a href="{% url 'jobs' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Вакансии"><i class="material-icons">work</i></a></li>
-            <li><a href="{% url 'companies' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Компании"><i class="material-icons">business</i></a></li>
-            <li><a href="{% url 'salaries' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Зарплаты"><i class="material-icons">local_atm</i></a></li>
-            <li><a href="{% url 'interviews' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Собеседования"><i class="material-icons">contact_phone</i></a></li>
+            <li><a href="{% url 'jobs' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Вакансии"><i class="pe-7s-portfolio"></i></a></li>
+            <li><a href="{% url 'companies' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Компании"><i class="pe-7s-culture"></i></a></li>
+            <li><a href="{% url 'salaries' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Зарплаты"><i class="pe-7s-wallet"></i></a></li>
+            <li><a href="{% url 'interviews' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Собеседования"><i class="pe-7s-users"></i></a></li>
         </ul>
     </div>
 </nav>
