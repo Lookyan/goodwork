@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col s2">
                                 {% if comp.logo %}
-                                <img src="{{ comp.logo }}" class="circle responsive-img vacancy-image"/>
+                                <img src="/uploads/{{ comp.logo }}" class="circle responsive-img vacancy-image"/>
                                 {% else %}
                                 <i class="material-icons md-48 circle responsive-img vacancy-image"></i>
                                 {% endif %}
@@ -64,24 +64,42 @@
                             <div class="col s12 null-padd">
                                 <ul class="tabs over-hidden">
                                     <li class="tab col s3"><a href="#id{{ comp.id }}_1"
-                                                              class="active light-green-text text-darken-2">Описание
-                                        вакансии</a></li>
-                                    <li class="tab col s3"><a href="#id{{ comp.id }}_2" class="light-green-text text-darken-2">О
-                                        работодателе</a></li>
-                                    <li class="tab col s3"><a href="#id{{ comp.id }}_3" class="light-green-text text-darken-2">Дополнительная
-                                        информация</a></li>
+                                                              class="active light-green-text text-darken-2">О работодателе</a></li>
+                                    <li class="tab col s3"><a href="#id{{ comp.id }}_2" class="light-green-text text-darken-2">Подробнее</a></li>
                                 </ul>
                             </div>
                             <div id="id{{ comp.id }}_1" class="col s12">
                                 <p>
-                                    New opportunities with our Cisco partners and collaborate with Cisco engineers to
-                                    provide technical solutions. Learn from Cisco experts in a unique setting…
-                                    organization, where you’ll be mentored directly by Cisco sales professionals. Upon
-                                    graduation from the Cisco Sales Associates Program, you’ll be promoted into…
+                                    {% if comp.description %}
+                                    {{ comp.description }}
+                                    {% else %}
+                                    Нет описания
+                                    {% endif %}
                                 </p>
                             </div>
-                            <div id="id{{ comp.id }}_2" class="col s12">Test 2</div>
-                            <div id="id{{ comp.id }}_3" class="col s12">Test 3</div>
+                            <div id="id{{ comp.id }}_2" class="col s12">
+                                <blockquote>
+                                    Вебсайт:
+                                    {% if comp.website %}
+                                    <a target="_blank" href="{{ comp.website }}">{{ comp.website }}</a>
+                                    {% else %}
+                                    Неизвестно
+                                    {% endif %}
+                                </blockquote>
+                                <blockquote>
+                                    Основана в:
+                                    {% if comp.founded %}
+                                    {{ comp.founded }}
+                                    {% else %}
+                                    Неизвестно
+                                    {% endif %}
+                                </blockquote>
+                                <blockquote>
+                                    Количество сотрудников:
+                                    {{ comp.get_size_display }}
+                                </blockquote>
+
+                            </div>
                         </div>
                     </div>
                 </li>
