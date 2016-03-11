@@ -1,6 +1,11 @@
 @font-face {
-font-family: ttdrugs;
-src: url("/TTDrugs-Thin.otf") format("opentype");
+    font-family: ttdrugs;
+    src: url("/TTDrugs-Thin.otf") format("opentype");
+}
+
+@font-face {
+    font-family: bauhaus;
+    src: url("/fonts/9687.ttf");
 }
 
 html {
@@ -22,7 +27,7 @@ main {
 }
 
 .logo {
-    font-family: "Helvetica Neue";
+    font-family: "bauhaus";
 }
 
 .rect {
@@ -403,5 +408,9 @@ input[type=range]+.thumb .value {
 
 .dr-font {
     font-family: ttdrugs;
+    font-weight: bold;
+}
+
+.set-bold {
     font-weight: bold;
 }
