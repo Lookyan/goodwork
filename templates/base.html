@@ -3,8 +3,8 @@
 <head lang="ru">
     <meta charset="UTF-8">
     <title>Моя работа</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="materialize.min.css">
+    <link href="material-icon.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/owl.carousel.css"/>
     <link rel="stylesheet" type="text/css" href="/owl.theme.css"/>
     <link rel="stylesheet" type="text/css" href="/owl.transitions.css"/>
@@ -121,23 +121,16 @@
     </div>
 </footer>
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script src="/jquery-v1-11.js"></script>
+<script src="/materialize.min.js"></script>
 <script src="/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/owl.carousel.min.js"></script>
 
-<!--<script src="emerald.js"></script>-->
-<!--<script type='text/javascript' src='http://emerald.sekizgen.net/wp-content/plugins/bwp-minify/min/?f=wp-content/themes/material-emerald/js/materialize.min.js,wp-content/themes/material-emerald/js/jquery.flexslider-min.js,wp-content/themes/material-emerald/js/imagesloaded.pkgd.min.js,wp-includes/js/hoverIntent.min.js,wp-content/themes/material-emerald/js/superfish.js,wp-content/themes/material-emerald/js/masonry.pkgd.min.js,wp-content/themes/material-emerald/js/equalize.min.js,wp-content/themes/material-emerald/js/jquery.magnific-popup.min.js,wp-content/themes/material-emerald/js/mobile-detect.min.js,wp-content/themes/material-emerald/js/jquery.sticky.js,wp-content/themes/material-emerald/js/scripts.js,wp-includes/js/comment-reply.min.js,wp-content/plugins/js_composer/assets/js/js_composer_front.js'></script>-->
 <script>
     $(".button-collapse").sideNav();
     $('.nav-search > a').click(function () {
         $('.material-search-overlay').toggleClass('material-search-overlay-hidden').toggleClass('material-search-overlay-visible');
         $('.material-search-form').toggleClass('material-search-form-hidden').toggleClass('material-search-form-visible');
-//            if (!(mobile_detect.is('iOS') && mobile_detect.is('Safari'))) {
-//                setTimeout(function() {
-//                    $('.material-search-form .material-search-input input[name=s]').focus();
-//                }, 600);
-//            }
     });
     $('.nav-search a.material-search-close').click(function () {
         $('.material-search-form .material-search-input input[name=s]').blur();
