@@ -414,3 +414,9 @@ input[type=range]+.thumb .value {
 .set-bold {
     font-weight: bold;
 }
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #d1d1d1;
+}
