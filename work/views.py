@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm, InterviewAddForm
 from django.contrib.auth.decorators import login_required
-from work.models import Company, JobType, Salary
+from work.models import Company, JobType, Salary, InterviewQuestion
 from django.db import connection
 
 
@@ -119,7 +119,22 @@ def add_interview(request):
     if request.method == 'GET':
         form = InterviewAddForm()
     else:
+        # create interview questions
+        qids = InterviewQuestion.add_questions(request.POST.getlist('question'), request.POST.getlist('answer'))
         form = InterviewAddForm(request.POST)
+        if form.is_valid():
+            job_name = request.POST.get('job_name')
+            if job_name is None or job_name == '':
+                return redirect('/add')
+            job_type = JobType.objects.create_if_not_exist(job_name)
+            interview = form.save(commit=False)
+            interview.user = request.user
+            interview.job = job_type
+            interview.company = Company.objects.get(name__iexact=company)
+            interview.save()
+            map(interview.question.add, qids)
+            return render(request, 'info-added.html', {})
+
     return render(request, 'add-interview.html', {'company': company, 'form': form})
 
 

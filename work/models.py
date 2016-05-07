@@ -264,7 +264,7 @@ class Interview(models.Model):
         verbose_name_plural = 'Собеседования'
 
     def __unicode__(self):
-        return "'" + self.job.name + "' at " + self.job.company.name
+        return "'" + self.job.name + "' at " + self.company.name
 
     user = models.ForeignKey(User, default=None)
     POSITIVE = '+'
@@ -282,6 +282,7 @@ class Interview(models.Model):
     job = models.ForeignKey('JobType')
     description = models.TextField()
     question = models.ManyToManyField('InterviewQuestion')
+    company = models.ForeignKey('Company')
     is_publicated = models.BooleanField(default=False)
     VERY_EASY = 'VE'
     EASY = 'E'
@@ -341,3 +342,14 @@ class InterviewQuestion(models.Model):
 
     question = models.TextField()
     answer = models.TextField()
+
+    @staticmethod
+    def add_questions(questions, answers):
+        if not questions or not answers or len(questions) != len(answers):
+            return []
+        qids = []
+        for question in zip(questions, answers):
+            q = InterviewQuestion(question=question[0], answer=question[1])
+            q.save()
+            qids.append(q)
+        return qids

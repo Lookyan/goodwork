@@ -101,3 +101,6 @@ class InterviewAddForm(ModelForm):
             'duration': '',
             'place': 'Место проведения'
         }
+        widgets = {
+            'description': forms.Textarea(attrs={'class': 'materialize-textarea'})
+        }
