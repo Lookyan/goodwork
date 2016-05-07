@@ -50,17 +50,8 @@
 
                     <div class="interview-questions">
                         <div class="row">
-                            <div class="col s6">
-                                <div class="card white">
-                                    <div class="row">
-                                        <div class="col s12">
-                                            <h6><b>Вопрос:</b></h6>
-                                            <input name="question" type="text">
-                                            <h6><b>Ответ:</b></h6>
-                                            <input name="answer" type="text">
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col s6 js-questions">
+
                             </div>
                         </div>
                     </div>
@@ -80,6 +71,19 @@
             </div>
         </div>
     </form>
+    <div class="question-card" style="display: none">
+        <div class="card white">
+            <div class="row">
+                <div class="col s12">
+                    <a class="btn-floating btn waves-effect waves-light red right js-remove-question"><i class="material-icons">close</i></a>
+                    <h6><b>Вопрос:</b></h6>
+                    <input name="question" type="text">
+                    <h6><b>Ответ:</b></h6>
+                    <input name="answer" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block additional_scripts %}
@@ -104,6 +108,14 @@ $(function() {
             .css("opacity", 1)
             .css("max-height", "200px");
     $(".ui-helper-hidden-accessible").css("display", "none");
+
+    $('.js-add-question').click(function() {
+        $('.js-questions').append($('.question-card').html());
+    });
+
+    $('body').on('click', '.js-remove-question', function() {
+        $(this).parent().parent().parent().remove();
+    });
 });
 </script>
 {% endblock %}

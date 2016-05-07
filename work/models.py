@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from managers import CompanyManager, JobTypeManager
 from django.db import connection
 
+User.__unicode__ = lambda self: self.email
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
@@ -21,9 +23,17 @@ class Profile(models.Model):
 
 
 class Company(models.Model):
-    name = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name = 'Компания'
+        verbose_name_plural = 'Компании'
+
+    def __unicode__(self):
+        return self.name
+
+    name = models.CharField(max_length=200, verbose_name='Название')
     user = models.ForeignKey(User, null=True, blank=True)
-    website = models.CharField(max_length=100, null=True, blank=True)
+    website = models.CharField(max_length=100, null=True, blank=True, verbose_name='Веб-сайт')
     logo = models.ImageField(upload_to='companies', default=None, null=True, blank=True)
 
     EMP1_50 = '1'
@@ -67,6 +77,14 @@ class Company(models.Model):
 
 
 class Job(models.Model):
+
+    class Meta:
+        verbose_name = 'Вакансия'
+        verbose_name_plural = 'Вакансии'
+
+    def __unicode__(self):
+        return self.name
+
     name = models.CharField(max_length=200)
     company = models.ForeignKey('Company')
     description = models.TextField()
@@ -97,16 +115,40 @@ class Job(models.Model):
 
 
 class Category(models.Model):
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    def __unicode__(self):
+        return self.name
+
     name = models.CharField(max_length=200)
     parent = models.ForeignKey('Category', default=None, null=True, blank=True)
     icon = models.ImageField(upload_to='categories', default=None, null=True, blank=True)
 
 
 class City(models.Model):
+
+    class Meta:
+        verbose_name = 'Город'
+        verbose_name_plural = 'Города'
+
+    def __unicode__(self):
+        return self.name
+
     name = models.CharField(max_length=50)
 
 
 class Review(models.Model):
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __unicode__(self):
+        return self.title
+
     user = models.ForeignKey(User, default=None)
     company = models.ForeignKey(Company)
     is_publicated = models.BooleanField(default=False)
@@ -150,6 +192,14 @@ class Review(models.Model):
 
 
 class Salary(models.Model):
+
+    class Meta:
+        verbose_name = 'Зарплата'
+        verbose_name_plural = 'Зарплаты'
+
+    def __unicode__(self):
+        return self.company.name
+
     user = models.ForeignKey(User, default=None)
     job = models.ForeignKey('JobType')
     company = models.ForeignKey('Company')
@@ -195,11 +245,27 @@ class Salary(models.Model):
 
 
 class JobType(models.Model):
+
+    class Meta:
+        verbose_name = 'Позиция'
+        verbose_name_plural = 'Позиции'
+
+    def __unicode__(self):
+        return self.name
+
     name = models.CharField(max_length=250)
     objects = JobTypeManager()
 
 
 class Interview(models.Model):
+
+    class Meta:
+        verbose_name = 'Собеседование'
+        verbose_name_plural = 'Собеседования'
+
+    def __unicode__(self):
+        return "'" + self.job.name + "' at " + self.job.company.name
+
     user = models.ForeignKey(User, default=None)
     POSITIVE = '+'
     NEGATIVE = '-'
@@ -213,7 +279,7 @@ class Interview(models.Model):
     experience = models.CharField(max_length=1,
                                   choices=TYPE_EXPERIENCE,
                                   default=POSITIVE)
-    job = models.ForeignKey('Job')
+    job = models.ForeignKey('JobType')
     description = models.TextField()
     question = models.ManyToManyField('InterviewQuestion')
     is_publicated = models.BooleanField(default=False)
@@ -265,5 +331,13 @@ class Interview(models.Model):
 
 
 class InterviewQuestion(models.Model):
+
+    class Meta:
+        verbose_name = 'Вопрос на интервью'
+        verbose_name_plural = 'Вопросы на интервью'
+
+    def __unicode__(self):
+        return self.question
+
     question = models.TextField()
     answer = models.TextField()

@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Company, Category, Job, City, Review, Salary, Interview, InterviewQuestion
+from .models import Company, Category, Job, City, Review, Salary, Interview, InterviewQuestion, JobType
 
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'website')
 
 
 @admin.register(Category)
@@ -39,4 +39,9 @@ class InterviewAdmin(admin.ModelAdmin):
 
 @admin.register(InterviewQuestion)
 class InterviewQuestionAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(JobType)
+class JobTypeAdmin(admin.ModelAdmin):
     pass
