@@ -4,10 +4,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm, InterviewAddForm
 from django.contrib.auth.decorators import login_required
 from work.models import Company, JobType, Salary, InterviewQuestion
 from django.db import connection
+from django.contrib.auth import update_session_auth_hash
 
 
 def home(request):
@@ -54,7 +56,16 @@ def signup(request):
 
 @login_required
 def settings(request):
-    return render(request, 'settings.html', {})
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return render(request, 'settings.html', {'done': True, 'form': form})
+    else:
+        form = PasswordChangeForm(request.user)
+
+    return render(request, 'settings.html', {'form': form})
 
 
 @login_required
