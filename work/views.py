@@ -158,8 +158,12 @@ def companies(request):
 
 
 def interviews(request):
-    pass
+    company = request.GET.get('q')
+    if company is None:
+        return redirect('/')
+    comps = Company.objects.filter(name__icontains=company)
 
+    return render(request, 'search-interview.html', {'companies': comps, 'q': company})
 
 def salaries(request):
     company = request.GET.get('q')
