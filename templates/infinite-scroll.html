@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        var page = 1;
+        var col = $('.collapsible-header').length;
+        var isEndReached = false;
+        $(window).scroll(function(){
+                if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+                    if(!isEndReached)
+                        loadData('company', ++page, '');
+                }
+        });
+
+        function loadData(url, page, company) {
+            $.get('{% url "get_data" %}?url=' + url + '&page=' + page + '&company=' + company, function(data) {
+                $('.collapsible').append(data);
+                var currentcol = $('.collapsible-header').length;
+                if(currentcol == col) {
+                    isEndReached = true;
+                    return;
+                }
+                var diff = currentcol - col;
+                col = currentcol;
+
+                $.each($('ul.tabs').slice(-diff), function(index, value) {
+                    $(this).parent().parent().parent().css('display', 'block');
+                    var liId = $($(value).find('li:first-child a')[0]).attr('href').substr(1);
+                    debugger;
+                    $(value).tabs();
+                    $(this).parent().parent().parent().css('display', 'none');
+                });
+
+            });
+        }
+    });
+</script>

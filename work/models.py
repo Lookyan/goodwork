@@ -243,6 +243,21 @@ class Salary(models.Model):
                               choices=EMPLOYMENT_STATUS,
                               default=NOT_CHECKED)
 
+    @staticmethod
+    def avg_salaries(comps):
+        avg_salaries = {}
+        cursor = connection.cursor()
+        for comp in comps:
+            cursor.execute('''SELECT c.name, j.name, AVG(s.value)
+                                             FROM work_salary s
+                                             JOIN work_jobtype j ON j.id = s.job_id
+                                             JOIN work_company c ON c.id = s.company_id
+                                             WHERE c.id = %s
+                                             GROUP BY j.id
+                                          ''', [comp.id])
+            avg_salaries[comp.id] = cursor.fetchall()
+        return avg_salaries
+
 
 class JobType(models.Model):
 

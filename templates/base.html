@@ -97,8 +97,8 @@
 <footer class="page-footer light-green darken-2">
     <div class="container">
         <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">ИС ОР</h5>
+            <div class="col s12">
+                <h5 class="white-text">Информационная система отзывов о работодателе</h5>
 
                 <p class="grey-text text-lighten-4"></p>
             </div>
@@ -144,7 +144,7 @@
             $(value).tabs('select_tab', liId);
         });
         $('.collapsible-body').css('display', 'none');
-        $('.collapsible-header').click(function() {
+        $(document).on('click', '.collapsible-header', function() {
             var $expandIcon = $(this).find('.expand-icon');
             if($expandIcon.text() == 'expand_more') {
                 $expandIcon.text('expand_less');

@@ -8,8 +8,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm, InterviewAddForm
 from django.contrib.auth.decorators import login_required
 from work.models import Company, JobType, Salary, InterviewQuestion
-from django.db import connection
 from django.contrib.auth import update_session_auth_hash
+
+PER_PAGE = 10
 
 
 def home(request):
@@ -153,7 +154,7 @@ def companies(request):
     company = request.GET.get('q')
     if company is None:
         return redirect('/')
-    comps = Company.objects.filter(name__icontains=company)
+    comps = Company.objects.filter(name__icontains=company, is_publicated=True)[:PER_PAGE]
     return render(request, 'search-company.html', {'companies': comps, 'q': company})
 
 
@@ -161,28 +162,19 @@ def interviews(request):
     company = request.GET.get('q')
     if company is None:
         return redirect('/')
-    comps = Company.objects.filter(name__icontains=company)
+    comps = Company.objects.filter(name__icontains=company, is_publicated=True)
 
     return render(request, 'search-interview.html', {'companies': comps, 'q': company})
+
 
 def salaries(request):
     company = request.GET.get('q')
     if company is None:
         return redirect('/')
-    comps = Company.objects.filter(name__icontains=company)
+    comps = Company.objects.filter(name__icontains=company, is_publicated=True)
 
     # aggregate salaries by positions
-    avg_salaries = {}
-    cursor = connection.cursor()
-    for comp in comps:
-        cursor.execute('''SELECT c.name, j.name, AVG(s.value)
-                                         FROM work_salary s
-                                         JOIN work_jobtype j ON j.id = s.job_id
-                                         JOIN work_company c ON c.id = s.company_id
-                                         WHERE c.id = %s
-                                         GROUP BY j.id
-                                      ''', [comp.id])
-        avg_salaries[comp.id] = cursor.fetchall()
+    avg_salaries = Salary.avg_salaries(comps)
     return render(request, 'search-salary.html', {'companies': comps, 'q': company, 'avg_sals': avg_salaries})
 
 
@@ -226,3 +218,20 @@ def company_create_js(request):
         return JsonResponse({'result': 'ok'})
     else:
         return JsonResponse({'result': 'error'})
+
+
+def get_data(request):
+    url = request.GET.get('url')
+    try:
+        company = str(request.GET.get('company'))
+        page = int(request.GET.get('page'))
+    except ValueError:
+        return HttpResponseBadRequest()
+    if not url or not page:
+        return HttpResponseBadRequest()
+    offset = (page - 1) * PER_PAGE
+    limit = PER_PAGE
+    if url == 'company':
+        comps = Company.objects.filter(name__icontains=company)[offset:offset + limit]
+        return render(request, 'company-entities.html', {'companies': comps})
+
