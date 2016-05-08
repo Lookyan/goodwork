@@ -1,12 +1,13 @@
 <script type="text/javascript">
     $(document).ready(function() {
+        var url = $('#js-url').val();
         var page = 1;
         var col = $('.collapsible-header').length;
         var isEndReached = false;
         $(window).scroll(function(){
                 if  ($(window).scrollTop() == $(document).height() - $(window).height()){
                     if(!isEndReached)
-                        loadData('company', ++page, '');
+                        loadData(url, ++page, getParameterByName('q'));
                 }
         });
 
@@ -16,6 +17,8 @@
                 var currentcol = $('.collapsible-header').length;
                 if(currentcol == col) {
                     isEndReached = true;
+                    $('#js-col').text(currentcol);
+                    $('#js-all').css('display', 'block');
                     return;
                 }
                 var diff = currentcol - col;
@@ -24,12 +27,21 @@
                 $.each($('ul.tabs').slice(-diff), function(index, value) {
                     $(this).parent().parent().parent().css('display', 'block');
                     var liId = $($(value).find('li:first-child a')[0]).attr('href').substr(1);
-                    debugger;
                     $(value).tabs();
                     $(this).parent().parent().parent().css('display', 'none');
                 });
 
             });
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
     });
 </script>

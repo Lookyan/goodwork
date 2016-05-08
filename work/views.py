@@ -155,7 +155,7 @@ def companies(request):
     if company is None:
         return redirect('/')
     comps = Company.objects.filter(name__icontains=company, is_publicated=True)[:PER_PAGE]
-    return render(request, 'search-company.html', {'companies': comps, 'q': company})
+    return render(request, 'search-company.html', {'companies': comps, 'q': company, 'url': 'company'})
 
 
 def interviews(request):
@@ -164,7 +164,7 @@ def interviews(request):
         return redirect('/')
     comps = Company.objects.filter(name__icontains=company, is_publicated=True)
 
-    return render(request, 'search-interview.html', {'companies': comps, 'q': company})
+    return render(request, 'search-interview.html', {'companies': comps, 'q': company, 'url': 'interview'})
 
 
 def salaries(request):
@@ -175,7 +175,8 @@ def salaries(request):
 
     # aggregate salaries by positions
     avg_salaries = Salary.avg_salaries(comps)
-    return render(request, 'search-salary.html', {'companies': comps, 'q': company, 'avg_sals': avg_salaries})
+    return render(request, 'search-salary.html',
+                  {'companies': comps, 'q': company, 'avg_sals': avg_salaries, 'url': 'salary'})
 
 
 def companyjs(request):
@@ -232,6 +233,10 @@ def get_data(request):
     offset = (page - 1) * PER_PAGE
     limit = PER_PAGE
     if url == 'company':
-        comps = Company.objects.filter(name__icontains=company)[offset:offset + limit]
+        comps = Company.objects.filter(name__icontains=company, is_publicated=True)[offset:offset + limit]
         return render(request, 'company-entities.html', {'companies': comps})
-
+    if url == 'salary':
+        comps = Company.objects.filter(name__icontains=company, is_publicated=True)[offset:offset + limit]
+        avg_salaries = Salary.avg_salaries(comps)
+        return render(request, 'salary-entities.html', {'companies': comps, 'q': company, 'avg_sals': avg_salaries})
+    # interview soon

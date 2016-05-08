@@ -107,6 +107,15 @@
             </ul>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <p id="js-all" style="display: none">
+                Все найденные компании показаны (<span id="js-col"></span> результатов)
+            </p>
+        </div>
+    </div>
+    <input type="hidden" value="{{ url }}" id="js-url">
 {% endblock %}
 
 {% block additional_scripts %}
