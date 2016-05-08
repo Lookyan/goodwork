@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col s10 offset-s1">
             <span>
-                Найдено {{ companies | length }} компаний:
+                Для отображения большего количества компаний промотайте до конца страницы:
             </span>
         </div>
     </div>
@@ -64,11 +64,17 @@
                             <div class="col s12 null-padd">
                                 <ul class="tabs over-hidden">
                                     <li class="tab col s3"><a href="#id{{ comp.id }}_1"
-                                                              class="active light-green-text text-darken-2">О работодателе</a></li>
-                                    <li class="tab col s3"><a href="#id{{ comp.id }}_2" class="light-green-text text-darken-2">Подробнее</a></li>
+                                                              class="active light-green-text text-darken-2">Собеседования</a></li>
+                                    <li class="tab col s3"><a href="#id{{ comp.id }}_2" class="light-green-text text-darken-2">О работодателе</a></li>
+                                    <li class="tab col s3"><a href="#id{{ comp.id }}_3" class="light-green-text text-darken-2">Подробнее</a></li>
                                 </ul>
                             </div>
                             <div id="id{{ comp.id }}_1" class="col s12">
+                                <p>
+                                    test
+                                </p>
+                            </div>
+                            <div id="id{{ comp.id }}_2" class="col s12">
                                 <p>
                                     {% if comp.description %}
                                     {{ comp.description }}
@@ -77,7 +83,7 @@
                                     {% endif %}
                                 </p>
                             </div>
-                            <div id="id{{ comp.id }}_2" class="col s12">
+                            <div id="id{{ comp.id }}_3" class="col s12">
                                 <blockquote>
                                     Вебсайт:
                                     {% if comp.website %}
@@ -107,4 +113,12 @@
             </ul>
         </div>
     </div>
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <p id="js-all" style="display: none">
+                Все найденные компании показаны (<span id="js-col"></span> результатов)
+            </p>
+        </div>
+    </div>
+    <input type="hidden" value="{{ url }}" id="js-url">
 {% endblock %}

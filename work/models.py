@@ -345,6 +345,10 @@ class Interview(models.Model):
                                 default=DAYS)
     place = models.CharField(max_length=250)
 
+    @staticmethod
+    def count_for_companies(comps):
+        pass  # TODO: do this
+
 
 class InterviewQuestion(models.Model):
 

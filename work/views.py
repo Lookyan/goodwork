@@ -162,7 +162,8 @@ def interviews(request):
     company = request.GET.get('q')
     if company is None:
         return redirect('/')
-    comps = Company.objects.filter(name__icontains=company, is_publicated=True)
+    comps = Company.objects.filter(name__icontains=company, is_publicated=True)[:PER_PAGE]
+
 
     return render(request, 'search-interview.html', {'companies': comps, 'q': company, 'url': 'interview'})
 
@@ -171,7 +172,7 @@ def salaries(request):
     company = request.GET.get('q')
     if company is None:
         return redirect('/')
-    comps = Company.objects.filter(name__icontains=company, is_publicated=True)
+    comps = Company.objects.filter(name__icontains=company, is_publicated=True)[:PER_PAGE]
 
     # aggregate salaries by positions
     avg_salaries = Salary.avg_salaries(comps)
