@@ -14,9 +14,9 @@
 <body>
 <nav class="light-green nav-fix">
     <ul id="slide-out" class="side-nav">
-        <li><a href="badges.html">Компании</a></li>
-        <li><a href="collapsible.html">Зарплаты</a></li>
-        <li><a href="collapsible.html">Собеседования</a></li>
+        <li><a href="{% url 'companies' %}">Компании</a></li>
+        <li><a href="{% url 'salaries' %}">Зарплаты</a></li>
+        <li><a href="{% url 'interviews' %}">Собеседования</a></li>
         {% if user.is_authenticated %}
         <li><a href="{% url "settings" %}">Перейти в аккаунт</a> </li>
         <li><a href="{% url "logout" %}">Выйти из аккаунта</a></li>
