@@ -249,4 +249,6 @@ def get_data(request):
         comps = Company.objects.filter(name__icontains=company, is_publicated=True)[offset:offset + limit]
         avg_salaries = Salary.avg_salaries(comps)
         return render(request, 'salary-entities.html', {'companies': comps, 'q': company, 'avg_sals': avg_salaries})
-        # interview soon
+    if url == 'interview':
+        comps = Company.objects.filter(name__icontains=company, is_publicated=True)[offset:offset + limit]
+        return render(request, 'interview-entities.html', {'companies': comps})

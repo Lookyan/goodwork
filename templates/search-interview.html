@@ -137,3 +137,7 @@
     </div>
     <input type="hidden" value="{{ url }}" id="js-url">
 {% endblock %}
+
+{% block additional_scripts %}
+{% include "infinite-scroll.html" %}
+{% endblock %}
