@@ -153,7 +153,7 @@ def add_interview(request):
 def companies(request):
     company = request.GET.get('q')
     if company is None:
-        return redirect('/')
+        company = ''
     comps = Company.objects.filter(name__icontains=company, is_publicated=True)[:PER_PAGE]
     return render(request, 'search-company.html', {'companies': comps, 'q': company, 'url': 'company'})
 
@@ -161,7 +161,7 @@ def companies(request):
 def interviews(request):
     company = request.GET.get('q')
     if company is None:
-        return redirect('/')
+        company = ''
     comps = Company.objects.filter(name__icontains=company, is_publicated=True)[:PER_PAGE]
 
     return render(request, 'search-interview.html',
@@ -180,7 +180,7 @@ def interview(request, interview_id):
 def salaries(request):
     company = request.GET.get('q')
     if company is None:
-        return redirect('/')
+        company = ''
     comps = Company.objects.filter(name__icontains=company, is_publicated=True)[:PER_PAGE]
 
     # aggregate salaries by positions
