@@ -57,9 +57,9 @@ class Company(models.Model):
                             choices=SIZE_EMPS_CHOICES,
                             default=UNKNOWN)
     engaged = models.BooleanField(default=False)
-    founded = models.PositiveSmallIntegerField(default=0)
-    revenue = models.IntegerField(default=0)
-    description = models.TextField()
+    founded = models.PositiveSmallIntegerField(default=0, blank=True)
+    revenue = models.IntegerField(default=0, blank=True)
+    description = models.TextField(blank=True)
     is_publicated = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
     objects = CompanyManager()
@@ -73,6 +73,17 @@ class Company(models.Model):
                           WHERE c.id = %s
                           GROUP BY j.id
                        ''', [self.id])
+        return cursor.fetchall()
+
+    def count_interview(self):
+        cursor = connection.cursor()
+        cursor.execute('''SELECT j.name, COUNT(i.id)
+                                         FROM work_interview i
+                                         JOIN work_jobtype j ON j.id = i.job_id
+                                         JOIN work_company c ON c.id = i.company_id
+                                         WHERE c.id = %s
+                                         GROUP BY i.job_id
+                                      ''', [self.id])
         return cursor.fetchall()
 
 
@@ -344,10 +355,6 @@ class Interview(models.Model):
                                 choices=DURATION_IN,
                                 default=DAYS)
     place = models.CharField(max_length=250)
-
-    @staticmethod
-    def count_for_companies(comps):
-        pass  # TODO: do this
 
 
 class InterviewQuestion(models.Model):

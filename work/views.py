@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm, InterviewAddForm
 from django.contrib.auth.decorators import login_required
-from work.models import Company, JobType, Salary, InterviewQuestion
+from work.models import Company, JobType, Salary, InterviewQuestion, Interview
 from django.contrib.auth import update_session_auth_hash
 
 PER_PAGE = 10
@@ -164,8 +164,17 @@ def interviews(request):
         return redirect('/')
     comps = Company.objects.filter(name__icontains=company, is_publicated=True)[:PER_PAGE]
 
+    return render(request, 'search-interview.html',
+                  {'companies': comps, 'q': company, 'url': 'interview'})
 
-    return render(request, 'search-interview.html', {'companies': comps, 'q': company, 'url': 'interview'})
+
+def interview(request, interview_id):
+    try:
+        company_object = Company.objects.get(pk=interview_id)
+    except Company.DoesNotExist:
+        return redirect('/')
+    interviews = Interview.objects.filter(company=company_object, is_publicated=True)
+    return render(request, 'interview.html', {'company': company_object, 'interviews': interviews})
 
 
 def salaries(request):
@@ -240,4 +249,4 @@ def get_data(request):
         comps = Company.objects.filter(name__icontains=company, is_publicated=True)[offset:offset + limit]
         avg_salaries = Salary.avg_salaries(comps)
         return render(request, 'salary-entities.html', {'companies': comps, 'q': company, 'avg_sals': avg_salaries})
-    # interview soon
+        # interview soon

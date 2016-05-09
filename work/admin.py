@@ -5,6 +5,9 @@ from .models import Company, Category, Job, City, Review, Salary, Interview, Int
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ('name', 'website')
+    list_per_page = 20
+    list_filter = ('size', 'is_publicated')
+    search_fields = ('name',)
 
 
 @admin.register(Category)
@@ -34,7 +37,8 @@ class SalaryAdmin(admin.ModelAdmin):
 
 @admin.register(Interview)
 class InterviewAdmin(admin.ModelAdmin):
-    pass
+    list_per_page = 20
+    list_filter = ('is_publicated', 'experience', 'difficulty', 'offer')
 
 
 @admin.register(InterviewQuestion)

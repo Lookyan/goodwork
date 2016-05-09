@@ -435,3 +435,8 @@ input[type=range]+.thumb .value {
 #toast-container > .toast {
     background-color: #558b2f;
 }
+
+.interview-logo {
+    width: 75px;
+    height: 75px;
+}

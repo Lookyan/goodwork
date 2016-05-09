@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="section light-green">
+        <div class="container vacancy-name">
+            <div class="row">
+                <div class="col s10 valign-wrapper">
+                    <h5 class="white-text valign">
+                        {{ company.name }}
+                    </h5>
+                </div>
+                <div class="col s2">
+                    {% if company.logo %}
+                    <img src="/uploads/{{ company.logo }}" class="circle interview-logo right"/>
+                    {% else %}
+                    <i class="material-icons circle interview-logo right"></i>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for interview in interviews %}
+
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="section white z-depth-1">
+                <div class="row">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h5 class="land-header">{{ interview.job.name }}</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    {% if interview.experience == '+' %}
+                                    <i class="material-icons green-text md-48">sentiment_satisfied</i>
+                                    {% elif interview.experience == '?' %}
+                                    <i class="material-icons amber-text md-48">sentiment_neutral</i>
+                                    {% elif interview.experience == '-' %}
+                                    <i class="material-icons red-text md-48">sentiment_dissatisfied</i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <p>Сложность: {{ interview.get_difficulty_display }}</p>
+                                    <p>Предложение: {{ interview.get_offer_display }}</p>
+                                    <p>Весь процесс занял: {{ interview.entire_process }} {{ interview.get_duration_display }}</p>
+                                    <blockquote>
+                                        {{ interview.description }}
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <ul class="collapsible" data-collapsible="accordion">
+                                    {% for question in interview.question.all %}
+                                    <li>
+                                      <div class="collapsible-header"><i class="pe-7s-help1"></i>{{ question.question }}</div>
+                                      <div class="collapsible-body"><p>{{ question.answer }}</p></div>
+                                    </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+{% endblock %}

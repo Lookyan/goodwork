@@ -52,7 +52,7 @@
                                 {% endif %}
                             </div>
                             <div class="col s6">
-                                <a href="#" class="vacancy-link" target="_blank">{{ comp.name }}</a>
+                                <a href="{% url "interview" comp.id %}" class="vacancy-link" target="_blank">{{ comp.name }}</a>
                             </div>
                             <div class="col s4">
                                 <i class="material-icons md-48 light-green-text text-darken-2 right expand-icon">expand_more</i>
@@ -71,7 +71,22 @@
                             </div>
                             <div id="id{{ comp.id }}_1" class="col s12">
                                 <p>
-                                    test
+                                    <table class="striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Позиция</th>
+                                                <th>Количество отзывов о собеседованиях</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for x in comp.count_interview %}
+                                                <tr>
+                                                    <td>{{ x.0 }}</td>
+                                                    <td>{{ x.1 }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </p>
                             </div>
                             <div id="id{{ comp.id }}_2" class="col s12">
