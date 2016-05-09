@@ -14,12 +14,18 @@
 <body>
 <nav class="light-green nav-fix">
     <ul id="slide-out" class="side-nav">
-        <li><a href="sass.html">Вакансии</a></li>
         <li><a href="badges.html">Компании</a></li>
         <li><a href="collapsible.html">Зарплаты</a></li>
         <li><a href="collapsible.html">Собеседования</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url "settings" %}">Перейти в аккаунт</a> </li>
+        <li><a href="{% url "logout" %}">Выйти из аккаунта</a></li>
+        {% else %}
+        <li><a href="{% url "signin" %}">Войти в аккаунт</a></li>
+        {% endif %}
+        <li><a href="{% url "add" %}">Добавить информацию</a></li>
     </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">dehaze</i></a>
 
     <div class="nav-wrapper container">
         <a href="{% url 'home' %}" class="brand-logo logo">ИС ОР</a>
@@ -81,7 +87,7 @@
 
             </div>
 
-            <li><a href="{% url 'jobs' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Вакансии"><i class="pe-7s-portfolio"></i></a></li>
+{#            <li><a href="{% url 'jobs' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Вакансии"><i class="pe-7s-portfolio"></i></a></li>#}
             <li><a href="{% url 'companies' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Компании"><i class="pe-7s-culture"></i></a></li>
             <li><a href="{% url 'salaries' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Зарплаты"><i class="pe-7s-wallet"></i></a></li>
             <li><a href="{% url 'interviews' %}" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Собеседования"><i class="pe-7s-users"></i></a></li>
