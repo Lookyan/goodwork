@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^add/salary/$', 'work.views.add_salary', name='add_salary'),
     url(r'^add/interview/$', 'work.views.add_interview', name='add_interview'),
     url(r'^interview/(\d*)$', 'work.views.interview', name='interview'),
+    url(r'^review/(\d*)$', 'work.views.review', name='review'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
     url(r'^companyjs/$', 'work.views.companyjs', name='companyjs'),
     url(r'^companycheck/$', 'work.views.company_check', name='company_check'),

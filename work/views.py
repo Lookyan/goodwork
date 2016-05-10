@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddForm, InterviewAddForm
 from django.contrib.auth.decorators import login_required
-from work.models import Company, JobType, Salary, InterviewQuestion, Interview
+from work.models import Company, JobType, Salary, InterviewQuestion, Interview, Review
 from django.contrib.auth import update_session_auth_hash
 
 PER_PAGE = 10
@@ -168,9 +168,9 @@ def interviews(request):
                   {'companies': comps, 'q': company, 'url': 'interview'})
 
 
-def interview(request, interview_id):
+def interview(request, company_id):
     try:
-        company_object = Company.objects.get(pk=interview_id)
+        company_object = Company.objects.get(pk=company_id)
     except Company.DoesNotExist:
         return redirect('/')
     interviews = Interview.objects.filter(company=company_object, is_publicated=True)
@@ -187,6 +187,15 @@ def salaries(request):
     avg_salaries = Salary.avg_salaries(comps)
     return render(request, 'search-salary.html',
                   {'companies': comps, 'q': company, 'avg_sals': avg_salaries, 'url': 'salary'})
+
+
+def review(request, company_id):
+    try:
+        company_object = Company.objects.get(pk=company_id)
+    except Company.DoesNotExist:
+        return redirect('/')
+    reviews = Review.objects.filter(company=company_object, is_publicated=True)
+    return render(request, 'review.html', {'company': company_object, 'reviews': reviews})
 
 
 def companyjs(request):

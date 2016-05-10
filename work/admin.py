@@ -27,7 +27,9 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    pass
+    list_per_page = 20
+    list_filter = ('is_publicated', 'rating', 'status')
+    search_fields = ('title',)
 
 
 @admin.register(Salary)

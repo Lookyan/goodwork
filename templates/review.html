@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load num_range %}
+
+{% block main %}
+    <div class="section light-green">
+        <div class="container vacancy-name">
+            <div class="row">
+                <div class="col s10 valign-wrapper">
+                    <h5 class="white-text valign">
+                        {{ company.name }} (Отзывы)
+                    </h5>
+                </div>
+                <div class="col s2">
+                    {% if company.logo %}
+                    <img src="/uploads/{{ company.logo }}" class="circle interview-logo right"/>
+                    {% else %}
+                    <i class="material-icons circle interview-logo right"></i>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for review in reviews %}
+
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="section white z-depth-1">
+                <div class="row">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h5 class="land-header">{{ review.title }}</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <p>
+                                        {% for i in review.rating_range %}
+                                        <i class="material-icons green-text md-48">stars</i>
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <p>Текущий сотрудник:
+                                    {% if review.current_empoyee %}
+                                        Да
+                                    {% else %}
+                                        Нет
+                                    {% endif %}
+                                    </p>
+                                    <p>
+                                        Статус: {{ review.get_status_display }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <ul class="collapsible" data-collapsible="accordion">
+                                    <li>
+                                      <div class="collapsible-header"><i class="material-icons">add</i>Преимущества</div>
+                                      <div class="collapsible-body"><p>{{ review.pros }}</p></div>
+                                    </li>
+                                  </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <ul class="collapsible" data-collapsible="accordion">
+                                    <li>
+                                      <div class="collapsible-header"><i class="material-icons">remove</i>Недостатки</div>
+                                      <div class="collapsible-body"><p>{{ review.cons }}</p></div>
+                                    </li>
+                                  </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+{% endblock %}

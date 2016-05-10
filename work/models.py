@@ -201,6 +201,9 @@ class Review(models.Model):
     pros = models.TextField()
     cons = models.TextField()
 
+    def rating_range(self):
+        return range(self.rating)
+
 
 class Salary(models.Model):
 

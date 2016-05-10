@@ -52,7 +52,7 @@
                                 {% endif %}
                             </div>
                             <div class="col s6">
-                                <a href="#" class="vacancy-link" target="_blank">{{ comp.name }}</a>
+                                <a href="{% url "review" comp.id %}" class="vacancy-link" target="_blank">{{ comp.name }}</a>
                             </div>
                             <div class="col s4">
                                 <i class="material-icons md-48 light-green-text text-darken-2 right expand-icon">expand_more</i>
