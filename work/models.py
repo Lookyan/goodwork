@@ -32,9 +32,9 @@ class Company(models.Model):
         return self.name
 
     name = models.CharField(max_length=200, verbose_name='Название')
-    user = models.ForeignKey(User, null=True, blank=True)
+    user = models.ForeignKey(User, null=True, blank=True, verbose_name='Пользователь')
     website = models.CharField(max_length=100, null=True, blank=True, verbose_name='Веб-сайт')
-    logo = models.ImageField(upload_to='companies', default=None, null=True, blank=True)
+    logo = models.ImageField(upload_to='companies', default=None, null=True, blank=True, verbose_name='Логотип')
 
     EMP1_50 = '1'
     EMP51_200 = '2'
@@ -55,13 +55,14 @@ class Company(models.Model):
     )
     size = models.CharField(max_length=1,
                             choices=SIZE_EMPS_CHOICES,
-                            default=UNKNOWN)
-    engaged = models.BooleanField(default=False)
-    founded = models.PositiveSmallIntegerField(default=0, blank=True)
-    revenue = models.IntegerField(default=0, blank=True)
-    description = models.TextField(blank=True)
-    is_publicated = models.BooleanField(default=False)
-    is_deleted = models.BooleanField(default=False)
+                            default=UNKNOWN,
+                            verbose_name='Размер')
+    engaged = models.BooleanField(default=False, verbose_name='Подтвержден')
+    founded = models.PositiveSmallIntegerField(default=0, blank=True, verbose_name='Основана')
+    revenue = models.IntegerField(default=0, blank=True, verbose_name='Доход')
+    description = models.TextField(blank=True, verbose_name='Описание')
+    is_publicated = models.BooleanField(default=False, verbose_name='Опубликовано')
+    is_deleted = models.BooleanField(default=False, verbose_name='Удалено')
     objects = CompanyManager()
 
     def get_pos_avg_salary(self):

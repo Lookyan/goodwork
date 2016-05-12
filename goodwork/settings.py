@@ -113,3 +113,7 @@ LOGIN_URL = '/signin/'
 LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = ('goodwork.backends.EmailAuthBackend',)
+
+LOCALE_PATHS = [
+    'locale/'
+]
