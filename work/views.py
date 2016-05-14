@@ -9,6 +9,7 @@ from goodwork.forms import SignUpForm, CompanyAddForm, ReviewAddForm, SalaryAddF
 from django.contrib.auth.decorators import login_required
 from work.models import Company, JobType, Salary, InterviewQuestion, Interview, Review
 from django.contrib.auth import update_session_auth_hash
+from django.views.decorators.csrf import csrf_exempt
 
 PER_PAGE = 10
 
@@ -261,3 +262,25 @@ def get_data(request):
     if url == 'interview':
         comps = Company.objects.filter(name__icontains=company, is_publicated=True)[offset:offset + limit]
         return render(request, 'interview-entities.html', {'companies': comps})
+
+
+@csrf_exempt
+def api_add_company(request):
+    if request.method != 'POST':
+        return HttpResponseBadRequest()
+    name = request.POST.get('name')
+    description = request.POST.get('description')
+    website = request.POST.get('website')
+    user = User.objects.all().first()
+    data = {
+        'name': name,
+        'user': user,
+        'website': website,
+        'description': description,
+        'is_publicated': True
+    }
+    if 'logo' in request.FILES:
+        data['logo'] = request.FILES['logo']
+    company = Company(**data)
+    company.save()
+    return JsonResponse({'ok': 'ok'})
