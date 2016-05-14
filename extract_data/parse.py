@@ -56,7 +56,7 @@ def main():
             logo = requests.get(logo_url)
         payload = {
             'name': response['name'],
-            'description': strip_tags(h.unescape(response['description'])).strip(),
+            'description': strip_tags(h.unescape(response['description'])).strip(),  # TODO: TypeError handling
             'website': response['site_url']
         }
         files = None
