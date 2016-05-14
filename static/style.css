@@ -170,7 +170,7 @@ main {
     max-width: 1140px
 }
 
-.material-search-form .material-search-input input[name=s] {
+.material-search-form .material-search-input input[name=q] {
     padding-bottom: 20px;
     margin-bottom: -20px;
     height: auto;

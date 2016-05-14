@@ -36,7 +36,7 @@
                 <a href="#" onclick="return false;"><i class="pe-7s-search left"></i></a>
 
                 <div class="material-search-overlay circle material-search-overlay-color-bg material-search-overlay-hidden"></div>
-                <form class="material-search-form material-search-form-hidden" action="/search/"
+                <form class="material-search-form material-search-form-hidden" action="{% url "companies" %}"
                       autocomplete="off">
                     <div class="material-search-form-container">
                         <a href="#" onclick="return false;" class="material-search-close"><i
@@ -44,10 +44,10 @@
 
                         <div class="material-search-form-container-row">
                             <div class="material-search-label center-align">
-                                <label for="s">Введите позицию или компанию</label>
+                                <label for="s">Введите компанию</label>
                             </div>
                             <div class="material-search-input">
-                                <input type="text" id="s" name="s" class="validate" autofocus="">
+                                <input type="text" id="s" name="q" class="validate" autofocus="">
                                 <span class="input-bottom-bar"></span>
                             </div>
                         </div>
