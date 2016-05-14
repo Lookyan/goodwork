@@ -3,8 +3,8 @@ from HTMLParser import HTMLParser
 
 h = HTMLParser()
 
-START_ID = 235
-COUNT = 100
+START_ID = 1
+COUNT = 3000
 STATS = {
     'successfully': 0,
     'failed': 0
