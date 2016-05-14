@@ -97,13 +97,13 @@ class Job(models.Model):
     def __unicode__(self):
         return self.name
 
-    name = models.CharField(max_length=200)
-    company = models.ForeignKey('Company')
-    description = models.TextField()
-    date_added = models.DateField(auto_now_add=True)
-    location = models.ForeignKey('City', default=None, null=True, blank=True)
-    experience = models.PositiveSmallIntegerField(default=0)
-    category = models.ForeignKey('Category')
+    name = models.CharField(max_length=200, verbose_name='Название')
+    company = models.ForeignKey('Company', verbose_name='Компания')
+    description = models.TextField(verbose_name='Описание')
+    date_added = models.DateField(auto_now_add=True, verbose_name='Добавлено')
+    location = models.ForeignKey('City', default=None, null=True, blank=True, verbose_name='Город')
+    experience = models.PositiveSmallIntegerField(default=0, verbose_name='Опыт')
+    category = models.ForeignKey('Category', verbose_name='Категория')
     FULL_TIME = 'FT'
     PART_TIME = 'PT'
     CONTRACT = 'CT'
@@ -123,7 +123,8 @@ class Job(models.Model):
     )
     type = models.CharField(max_length=2,
                             choices=TYPE_OF_JOB_CHOICES,
-                            default=FULL_TIME)
+                            default=FULL_TIME,
+                            verbose_name='Тип')
 
 
 class Category(models.Model):
@@ -135,9 +136,9 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
-    name = models.CharField(max_length=200)
-    parent = models.ForeignKey('Category', default=None, null=True, blank=True)
-    icon = models.ImageField(upload_to='categories', default=None, null=True, blank=True)
+    name = models.CharField(max_length=200, verbose_name='Название')
+    parent = models.ForeignKey('Category', default=None, null=True, blank=True, verbose_name='Родитель')
+    icon = models.ImageField(upload_to='categories', default=None, null=True, blank=True, verbose_name='Иконка')
 
 
 class City(models.Model):
@@ -149,7 +150,7 @@ class City(models.Model):
     def __unicode__(self):
         return self.name
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, verbose_name='Имя')
 
 
 class Review(models.Model):
@@ -161,9 +162,9 @@ class Review(models.Model):
     def __unicode__(self):
         return self.title
 
-    user = models.ForeignKey(User, default=None)
-    company = models.ForeignKey(Company)
-    is_publicated = models.BooleanField(default=False)
+    user = models.ForeignKey(User, default=None, verbose_name='Пользователь')
+    company = models.ForeignKey(Company, verbose_name='Компания')
+    is_publicated = models.BooleanField(default=False, verbose_name='Опубликовано')
 
     R1 = 1
     R2 = 2
@@ -178,8 +179,8 @@ class Review(models.Model):
         (R5, '5')
     )
     rating = models.PositiveSmallIntegerField(choices=RATING_CHOICES,
-                                              default=R5)
-    is_current_employee = models.BooleanField(default=False)
+                                              default=R5, verbose_name='Рейтинг')
+    is_current_employee = models.BooleanField(default=False, verbose_name='Текущий сотрудник')
     FULL_TIME = 'FT'
     PART_TIME = 'PT'
     CONTRACT = 'CT'
@@ -197,10 +198,11 @@ class Review(models.Model):
     )
     status = models.CharField(max_length=2,
                               choices=EMPLOYMENT_STATUS,
-                              default=NOT_CHECKED)
-    title = models.CharField(max_length=200, default=None, null=True, blank=True)
-    pros = models.TextField()
-    cons = models.TextField()
+                              default=NOT_CHECKED,
+                              verbose_name='Статус')
+    title = models.CharField(max_length=200, default=None, null=True, blank=True, verbose_name='Заголовок')
+    pros = models.TextField(verbose_name='Преимущества')
+    cons = models.TextField(verbose_name='Недостатки')
 
     def rating_range(self):
         return range(self.rating)
@@ -215,10 +217,10 @@ class Salary(models.Model):
     def __unicode__(self):
         return self.company.name
 
-    user = models.ForeignKey(User, default=None)
-    job = models.ForeignKey('JobType')
-    company = models.ForeignKey('Company')
-    value = models.IntegerField(default=0)
+    user = models.ForeignKey(User, default=None, verbose_name='Пользователь')
+    job = models.ForeignKey('JobType', verbose_name='Позиция')
+    company = models.ForeignKey('Company', verbose_name='Компания')
+    value = models.IntegerField(default=0, verbose_name='Значение')
 
     LESS_YEAR = 0
     ONE_YEAR = 1
@@ -237,8 +239,9 @@ class Salary(models.Model):
     )
 
     experience = models.PositiveSmallIntegerField(choices=EXPERIENCE_CHOICES,
-                                                  default=LESS_YEAR)
-    location = models.ForeignKey('City', default=None, null=True, blank=True)
+                                                  default=LESS_YEAR,
+                                                  verbose_name='Опыт')
+    location = models.ForeignKey('City', default=None, null=True, blank=True, verbose_name='Город')
     FULL_TIME = 'FT'
     PART_TIME = 'PT'
     CONTRACT = 'CT'
@@ -256,7 +259,8 @@ class Salary(models.Model):
     )
     status = models.CharField(max_length=2,
                               choices=EMPLOYMENT_STATUS,
-                              default=NOT_CHECKED)
+                              default=NOT_CHECKED,
+                              verbose_name='Статус')
 
     @staticmethod
     def avg_salaries(comps):
@@ -283,7 +287,7 @@ class JobType(models.Model):
     def __unicode__(self):
         return self.name
 
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, verbose_name='Название')
     objects = JobTypeManager()
 
 
@@ -308,12 +312,13 @@ class Interview(models.Model):
     )
     experience = models.CharField(max_length=1,
                                   choices=TYPE_EXPERIENCE,
-                                  default=POSITIVE)
-    job = models.ForeignKey('JobType')
-    description = models.TextField()
-    question = models.ManyToManyField('InterviewQuestion')
-    company = models.ForeignKey('Company')
-    is_publicated = models.BooleanField(default=False)
+                                  default=POSITIVE,
+                                  verbose_name='Опыт')
+    job = models.ForeignKey('JobType', verbose_name='Позиция')
+    description = models.TextField(verbose_name='Описание')
+    question = models.ManyToManyField('InterviewQuestion', verbose_name='Вопросы')
+    company = models.ForeignKey('Company', verbose_name='Компания')
+    is_publicated = models.BooleanField(default=False, verbose_name='Опубликовано')
     VERY_EASY = 'VE'
     EASY = 'E'
     AVERAGE = 'A'
@@ -331,7 +336,8 @@ class Interview(models.Model):
     )
     difficulty = models.CharField(max_length=2,
                                   choices=TYPE_DIFFICULTY,
-                                  default=NOT_CHECKED)
+                                  default=NOT_CHECKED,
+                                  verbose_name='Сложность')
     YES = 'Y'
     DECLINED = 'D'
     NO = 'N'
@@ -344,8 +350,9 @@ class Interview(models.Model):
     )
     offer = models.CharField(max_length=1,
                              choices=TYPE_OFFER,
-                             default=NOT_CHECKED)
-    entire_process = models.PositiveSmallIntegerField(default=0)
+                             default=NOT_CHECKED,
+                             verbose_name='Предложение')
+    entire_process = models.PositiveSmallIntegerField(default=0, verbose_name='Весь процесс занял')
     DAYS = 'D'
     WEEKS = 'W'
     MONTHS = 'M'
@@ -357,8 +364,9 @@ class Interview(models.Model):
     )
     duration = models.CharField(max_length=1,
                                 choices=DURATION_IN,
-                                default=DAYS)
-    place = models.CharField(max_length=250)
+                                default=DAYS,
+                                verbose_name='Продолжительность')
+    place = models.CharField(max_length=250, verbose_name='Место проведения')
 
 
 class InterviewQuestion(models.Model):
@@ -370,8 +378,8 @@ class InterviewQuestion(models.Model):
     def __unicode__(self):
         return self.question
 
-    question = models.TextField()
-    answer = models.TextField()
+    question = models.TextField(verbose_name='Вопрос')
+    answer = models.TextField(verbose_name='Ответ')
 
     @staticmethod
     def add_questions(questions, answers):
