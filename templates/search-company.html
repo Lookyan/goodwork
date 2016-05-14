@@ -71,7 +71,7 @@
                             <div id="id{{ comp.id }}_1" class="col s12">
                                 <p>
                                     {% if comp.description %}
-                                    {{ comp.description }}
+                                    {{ comp.description | linebreaks }}
                                     {% else %}
                                     Нет описания
                                     {% endif %}

@@ -56,7 +56,7 @@ class Company(models.Model):
     size = models.CharField(max_length=1,
                             choices=SIZE_EMPS_CHOICES,
                             default=UNKNOWN,
-                            verbose_name='Размер')
+                            verbose_name='Количество сотрудников')
     engaged = models.BooleanField(default=False, verbose_name='Подтвержден')
     founded = models.PositiveSmallIntegerField(default=0, blank=True, verbose_name='Основана')
     revenue = models.IntegerField(default=0, blank=True, verbose_name='Доход')
