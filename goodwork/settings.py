@@ -115,5 +115,5 @@ LOGIN_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = ('goodwork.backends.EmailAuthBackend',)
 
 LOCALE_PATHS = [
-    'locale/'
+    os.path.join(BASE_DIR, 'locale')
 ]

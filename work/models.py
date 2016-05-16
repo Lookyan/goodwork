@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from managers import CompanyManager, JobTypeManager
 from django.db import connection
+from django.utils.translation import ugettext as _
 
 User.__unicode__ = lambda self: self.email
 
@@ -14,8 +15,8 @@ class Profile(models.Model):
     MODERATOR = 'MO'
 
     TYPE_OF_USER_CHOICES = (
-        (REGULAR_USER, 'Regular User'),
-        (MODERATOR, 'Moderator'),
+        (REGULAR_USER, _('Regular User')),
+        (MODERATOR, _('Moderator')),
     )
     group = models.CharField(max_length=2,
                              choices=TYPE_OF_USER_CHOICES,
