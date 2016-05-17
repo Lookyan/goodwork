@@ -35,3 +35,9 @@ msgstr "Все разделы"
 
 msgid "Back to website"
 msgstr "Вернуться на сайт"
+
+msgid "Actions "
+msgstr "Действия "
+
+msgid "New"
+msgstr "Новый"
