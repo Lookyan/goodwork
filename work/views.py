@@ -58,16 +58,26 @@ def signup(request):
 
 @login_required
 def settings(request):
+    count_reviews = Review.objects.filter(user=request.user).count()
+    count_interviews = Interview.objects.filter(user=request.user).count()
+    count_salaries = Salary.objects.filter(user=request.user).count()
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return render(request, 'settings.html', {'done': True, 'form': form})
+            return render(request, 'settings.html', {'done': True,
+                                                     'form': form,
+                                                     'count_reviews': count_reviews,
+                                                     'count_interviews': count_interviews,
+                                                     'count_salaries': count_salaries})
     else:
         form = PasswordChangeForm(request.user)
 
-    return render(request, 'settings.html', {'form': form})
+    return render(request, 'settings.html', {'form': form,
+                                             'count_reviews': count_reviews,
+                                             'count_interviews': count_interviews,
+                                             'count_salaries': count_salaries})
 
 
 @login_required
